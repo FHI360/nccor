@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/leaflet/leaflet.css" />
-    <link rel="stylesheet" href="/leaflet/leaflet.markercluster/MarkerCluster.css" />
-    <link rel="stylesheet" href="/leaflet/leaflet.markercluster/MarkerCluster.Default.css" />
-    <link rel="stylesheet" href="/leaflet/leaflet.label/leaflet.label.css" />
+    <link rel="stylesheet" href="leaflet/leaflet.css" />
+    <link rel="stylesheet" href="leaflet/leaflet.markercluster/MarkerCluster.css" />
+    <link rel="stylesheet" href="leaflet/leaflet.markercluster/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="leaflet/leaflet.label/leaflet.label.css" />
 </head>
 </script>
 <body data-ng-app="nccor">
@@ -37,19 +37,20 @@
         </ul>
     </div>
 </body>
-<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+
+<script src="http://tombatossals.github.io/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
 <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
 <script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
-<script src="/leaflet/google/leaflet-google-plugin.js"></script>
-<script src="/leaflet/leaflet.markercluster/leaflet.markercluster.js"></script>
-<script src="/leaflet/leaflet.label/leaflet.label.js"></script>
-<script src="/leaflet/angular-leaflet-directive.min.js"></script>
+<script src="leaflet/google/leaflet-google-plugin.js"></script>
+<script src="http://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+<script src="leaflet/leaflet.label/leaflet.label.js"></script>
 
 <script>
     angular.module('nccor', ['leaflet-directive'])
-        .controller('NccorCtrl', ['$scope', '$http', 'leafletData', function($scope, $http, leafletData){
+        .controller('NccorCtrl', ['$scope', '$http', 'leafletData', 'leafletHelpers', function($scope, $http, leafletData, leafletHelpers){
 
             $scope.layers = {
                 baselayers: {
@@ -65,7 +66,15 @@
                         type: "markercluster",
                         visible: true,
                         layerOptions: {
-                            showCoverageOnHover: false
+                            showCoverageOnHover: false,
+                            iconCreateFunction: function (cluster) {
+                                var markers = cluster.getAllChildMarkers();
+                                var n = 0;
+                                for (var i = 0; i < markers.length; i++) {
+                                    n += markers[i].number;
+                                }
+                                return leafletHelpers.Leaflet.divIcon({ html: n, className: 'mycluster', iconSize: leafletHelpers.Leaflet.point(40, 40) });
+                            },
                         }
                     }
                 }
@@ -84,7 +93,8 @@
                         lng: 121.525,
                         label: {
                             message: "Taipei",
-                        }
+                        },
+                        message: "I am Taipei!"
                     },
                     yangmei: {
                         layer: "Projects",
@@ -106,8 +116,14 @@
                     }
                 };
 
-            leafletData.getMap().then(function(map) {
-                map.fitBounds([ [40.712, -74.227], [40.774, -74.125] ]);
+            leafletData.getLayers().then(function(layers) {
+                $scope.markerClusterGrp = layers.overlays.Projects;
+                var clusters = $scope.markerClusterGrp.getLayers();
+                var clusterTitles = [];
+                for (var j in clusters){
+                    clusterTitles.push(clusters[j].options.title);
+                }
+                console.log('options.title in cluster obj', clusterTitles );
             });
  
             $scope.data = {};
