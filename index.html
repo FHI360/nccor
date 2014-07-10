@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/leaflet/leaflet.css" />
+    <link rel="stylesheet" href="/leaflet/leaflet.markercluster/MarkerCluster.css" />
+    <link rel="stylesheet" href="/leaflet/leaflet.markercluster/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="/leaflet/leaflet.label/leaflet.label.css" />
+</head>
+</script>
+<body data-ng-app="nccor">
+    <div data-ng-controller="NccorCtrl" data-ng-init="init()">
+        <h3>Showing {{filteredData.length}} records.</h3>
+        <select data-ng-change="processData()" data-ng-model="year">
+            <option value="">- Show all -</option>
+            <option data-ng-repeat="y in years" value="{{y}}">{{y}}</option>
+        </select>
+
+        <select data-ng-change="processData()" data-ng-model="agency">
+            <option value="">- Show all -</option>
+            <option data-ng-repeat="a in agencies" value="{{a}}">{{a}}</option>
+        </select>
+
+        <select data-ng-change="processData()" data-ng-model="funder">
+            <option value="">- Show all -</option>
+            <option data-ng-repeat="f in funders" value="{{f}}">{{f}}</option>
+        </select>
+
+        <select data-ng-change="processData()" data-ng-model="state">
+            <option value="">- Show all -</option>
+            <option data-ng-repeat="s in states" value="{{s}}">{{s}}</option>
+        </select>
+
+        <leaflet center="center" markers="markers" layers="layers" width="640px" height="480px"></leaflet>
+
+        <ul ng-model="filteredData">
+            <li data-ng-repeat="datum in filteredData">{{datum.title}}</li>
+        </ul>
+    </div>
+</body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+<script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+<script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
+<script src="/leaflet/google/leaflet-google-plugin.js"></script>
+<script src="/leaflet/leaflet.markercluster/leaflet.markercluster.js"></script>
+<script src="/leaflet/leaflet.label/leaflet.label.js"></script>
+<script src="/leaflet/angular-leaflet-directive.min.js"></script>
+
+<script>
+    angular.module('nccor', ['leaflet-directive'])
+        .controller('NccorCtrl', ['$scope', '$http', 'leafletData', function($scope, $http, leafletData){
+
+            $scope.layers = {
+                baselayers: {
+                    googleRoadmap: {
+                        name: 'Google Streets',
+                        layerType: 'ROADMAP',
+                        type: 'google'
+                    }
+                },
+                overlays: {
+                    Projects: {
+                        name: "Projects",
+                        type: "markercluster",
+                        visible: true,
+                        layerOptions: {
+                            showCoverageOnHover: false
+                        }
+                    }
+                }
+            };
+            
+            $scope.center = {
+                    lat: 24.0391667,
+                    lng: 121.525,
+                    zoom: 6,
+                };
+
+            $scope.markers = {
+                    taipei: {
+                        layer: "Projects",
+                        lat: 25.0391667,
+                        lng: 121.525,
+                        label: {
+                            message: "Taipei",
+                        }
+                    },
+                    yangmei: {
+                        layer: "Projects",
+                        lat: 24.9166667,
+                        lng: 121.1333333,
+                        label: {message: "Yangmei" }
+                    },
+                    hsinchu: {
+                        layer: "Projects",
+                        lat: 24.8047222,
+                        lng: 120.9713889,
+                        label: {message: "hsinchu" }
+                    },
+                    miaoli: {
+                        layer: "Projects",
+                        lat: 24.5588889,
+                        lng: 120.8219444,
+                        label: {message: "miaoli" }
+                    }
+                };
+
+            leafletData.getMap().then(function(map) {
+                map.fitBounds([ [40.712, -74.227], [40.774, -74.125] ]);
+            });
+ 
+            $scope.data = {};
+            $scope.filteredData = {};
+            $scope.year = '';
+            $scope.years = [];
+            $scope.agency = '';
+            $scope.agencies = [];
+            $scope.funder = '';
+            $scope.funders = [];
+            $scope.state = '';
+            $scope.states = [];
+
+            $scope.init = function() {
+                console.log('Requesting remote server...');
+
+                getAllProjects();
+            };
+
+	    $scope.processData = function() {
+
+
+                $scope.filteredData = _.chain($scope.data)
+                    .filter(function(el) { 
+                        //return _.intersection(funders, el.funder).length > 0;
+                        var funders = [];
+                        $scope.funder==''?funders=$scope.funders:funders=Array($scope.funder);
+                        return _.intersection(funders, Array(el.funder)).length > 0;
+                    })
+                    .filter(function(el) {
+                        var agencies = [];
+                        $scope.agency==''?agencies=$scope.agencies:agencies=Array($scope.agency);
+                        return _.intersection(agencies, Array(el.agency)).length > 0;
+                    })
+                    .filter(function(el) {
+                        var  years= [];
+                        $scope.year==''?years=$scope.years:years=Array($scope.year);
+                        return _.intersection(years, Array(el.year)).length > 0;
+		    })
+                    .filter(function(el) {
+                        var  states= [];
+                        $scope.state==''?states=$scope.states:states=Array($scope.state);
+                        return _.intersection(states, Array(el.state)).length > 0;
+		    })
+                    .value();
+                console.log($scope.filteredData);
+            };
+
+            function getAllProjects() {
+                var responsePromise = $http.jsonp("http://map.nccor.org/projects/all?callback=JSON_CALLBACK");
+
+                responsePromise.success(function(data, status, headers, config) {
+                    console.log( "Got data from remote server" );
+                    initData(data);
+                    //console.table(data);
+                });
+                responsePromise.error(function(data, status, headers, config) {
+                    console.log("JSONP failed!"); 
+                    return [];
+                });
+            }
+
+            function initData(data) {
+                $scope.filteredData = $scope.data = data;
+                $scope.funders = _.chain($scope.data).uniq(function(obj) {return obj.funder}).map(function(el) { return el.funder }).sortBy(function(el) { return el; }).value();
+                $scope.years = _.chain($scope.data).uniq(function(obj) {return obj.year}).map(function(el) { return el.year }).sortBy(function(el) { return el; }).value();
+                $scope.agencies= _.chain($scope.data).uniq(function(obj) {return obj.agency}).map(function(el) { return el.agency }).sortBy(function(el) { return el; }).value();
+                $scope.states= _.chain($scope.data).uniq(function(obj) {return obj.state}).map(function(el) { return el.state }).filter(function(el) {return el!=undefined}).sortBy(function(el) { return el; }).value();
+            }
+        }]);
+</script>
+</html>
