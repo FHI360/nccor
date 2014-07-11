@@ -4,7 +4,9 @@
     <link rel="stylesheet" href="leaflet/leaflet.css" />
     <link rel="stylesheet" href="leaflet/leaflet.markercluster/MarkerCluster.css" />
     <link rel="stylesheet" href="leaflet/leaflet.markercluster/MarkerCluster.Default.css" />
-    <link rel="stylesheet" href="leaflet/leaflet.label/leaflet.label.css" />
+    <style type="text/css">
+        #map { height: 400px; }
+    </style>
 </head>
 </script>
 <body data-ng-app="nccor">
@@ -30,55 +32,28 @@
             <option data-ng-repeat="s in states" value="{{s}}">{{s}}</option>
         </select>
 
-        <leaflet center="center" markers="markers" layers="layers" width="640px" height="480px"></leaflet>
+        <!-- <leaflet center="center" markers="markers" layers="layers" width="640px" height="480px"></leaflet> -->
+
+        <div id="map"></div>
 
         <ul ng-model="filteredData">
             <li data-ng-repeat="datum in filteredData">{{datum.title}}</li>
         </ul>
+
     </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
 
-<script src="http://tombatossals.github.io/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
 <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
 <script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
 <script src="leaflet/google/leaflet-google-plugin.js"></script>
 <script src="http://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
-<script src="leaflet/leaflet.label/leaflet.label.js"></script>
 
 <script>
-    angular.module('nccor', ['leaflet-directive'])
-        .controller('NccorCtrl', ['$scope', '$http', 'leafletData', 'leafletHelpers', function($scope, $http, leafletData, leafletHelpers){
-
-            $scope.layers = {
-                baselayers: {
-                    googleRoadmap: {
-                        name: 'Google Streets',
-                        layerType: 'ROADMAP',
-                        type: 'google'
-                    }
-                },
-                overlays: {
-                    Projects: {
-                        name: "Projects",
-                        type: "markercluster",
-                        visible: true,
-                        layerOptions: {
-                            showCoverageOnHover: false,
-                            iconCreateFunction: function (cluster) {
-                                var markers = cluster.getAllChildMarkers();
-                                var n = 0;
-                                for (var i = 0; i < markers.length; i++) {
-                                    n += markers[i].number;
-                                }
-                                return leafletHelpers.Leaflet.divIcon({ html: n, className: 'mycluster', iconSize: leafletHelpers.Leaflet.point(40, 40) });
-                            },
-                        }
-                    }
-                }
-            };
+    angular.module('nccor', [])
+        .controller('NccorCtrl', ['$scope', '$http', function($scope, $http){
             
             $scope.center = {
                     lat: 24.0391667,
@@ -86,46 +61,7 @@
                     zoom: 6,
                 };
 
-            $scope.markers = {
-                    taipei: {
-                        layer: "Projects",
-                        lat: 25.0391667,
-                        lng: 121.525,
-                        label: {
-                            message: "Taipei",
-                        },
-                        message: "I am Taipei!"
-                    },
-                    yangmei: {
-                        layer: "Projects",
-                        lat: 24.9166667,
-                        lng: 121.1333333,
-                        label: {message: "Yangmei" }
-                    },
-                    hsinchu: {
-                        layer: "Projects",
-                        lat: 24.8047222,
-                        lng: 120.9713889,
-                        label: {message: "hsinchu" }
-                    },
-                    miaoli: {
-                        layer: "Projects",
-                        lat: 24.5588889,
-                        lng: 120.8219444,
-                        label: {message: "miaoli" }
-                    }
-                };
-
-            leafletData.getLayers().then(function(layers) {
-                $scope.markerClusterGrp = layers.overlays.Projects;
-                var clusters = $scope.markerClusterGrp.getLayers();
-                var clusterTitles = [];
-                for (var j in clusters){
-                    clusterTitles.push(clusters[j].options.title);
-                }
-                console.log('options.title in cluster obj', clusterTitles );
-            });
- 
+            $scope.map = {};
             $scope.data = {};
             $scope.filteredData = {};
             $scope.year = '';
@@ -137,18 +73,18 @@
             $scope.state = '';
             $scope.states = [];
 
+            var projectsGroup = L.featureGroup();
+
             $scope.init = function() {
                 console.log('Requesting remote server...');
 
                 getAllProjects();
             };
 
-	    $scope.processData = function() {
-
+	        $scope.processData = function() {
 
                 $scope.filteredData = _.chain($scope.data)
                     .filter(function(el) { 
-                        //return _.intersection(funders, el.funder).length > 0;
                         var funders = [];
                         $scope.funder==''?funders=$scope.funders:funders=Array($scope.funder);
                         return _.intersection(funders, Array(el.funder)).length > 0;
@@ -169,6 +105,7 @@
                         return _.intersection(states, Array(el.state)).length > 0;
 		    })
                     .value();
+                placeMarkers();
                 console.log($scope.filteredData);
             };
 
@@ -188,11 +125,35 @@
 
             function initData(data) {
                 $scope.filteredData = $scope.data = data;
-                $scope.funders = _.chain($scope.data).uniq(function(obj) {return obj.funder}).map(function(el) { return el.funder }).sortBy(function(el) { return el; }).value();
-                $scope.years = _.chain($scope.data).uniq(function(obj) {return obj.year}).map(function(el) { return el.year }).sortBy(function(el) { return el; }).value();
-                $scope.agencies= _.chain($scope.data).uniq(function(obj) {return obj.agency}).map(function(el) { return el.agency }).sortBy(function(el) { return el; }).value();
-                $scope.states= _.chain($scope.data).uniq(function(obj) {return obj.state}).map(function(el) { return el.state }).filter(function(el) {return el!=undefined}).sortBy(function(el) { return el; }).value();
+                renderFilters($scope.filteredData);
+                initMap();
+                placeMarkers();
             }
+
+            function renderFilters(data) {
+                $scope.funders = _.chain(data).uniq(function(obj) {return obj.funder}).map(function(el) { return el.funder }).sortBy(function(el) { return el; }).value();
+                $scope.years = _.chain(data).uniq(function(obj) {return obj.year}).map(function(el) { return el.year }).sortBy(function(el) { return el; }).value();
+                $scope.agencies= _.chain(data).uniq(function(obj) {return obj.agency}).map(function(el) { return el.agency }).sortBy(function(el) { return el; }).value();
+                $scope.states= _.chain(data).uniq(function(obj) {return obj.state}).map(function(el) { return el.state }).filter(function(el) {return el!=undefined}).sortBy(function(el) { return el; }).value();
+            }
+
+            function initMap() {
+                $scope.map = L.map('map').setView([39.186, -96.583], 4);
+                var googleLayer = new L.Google('ROADMAP');
+                $scope.map.addLayer(googleLayer);
+            }
+
+            function placeMarkers() {
+                projectsGroup.clearLayers();
+               
+                projectsGroup.addTo($scope.map);
+                var projects = $scope.filteredData;
+                for (var key in $scope.filteredData) {
+                    if((projects[key].latitude != undefined) && (projects[key].longitude != undefined))
+                        L.marker([projects[key].latitude, projects[key].longitude]).bindPopup(projects[key].title).on('mouseover', function(evt) {console.log(evt); evt.target.openPopup(); }).on('mouseout', function(evt) {evt.target.closePopup(); }).addTo(projectsGroup);
+                }
+            }
+
         }]);
 </script>
 </html>
