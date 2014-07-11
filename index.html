@@ -73,7 +73,7 @@
             $scope.state = '';
             $scope.states = [];
 
-            var projectsGroup = L.featureGroup();
+            var projectsGroup = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 30, singleMarkerMode: true});
 
             $scope.init = function() {
                 console.log('Requesting remote server...');
@@ -147,10 +147,16 @@
                 projectsGroup.clearLayers();
                
                 projectsGroup.addTo($scope.map);
+                projectsGroup.on('clustermouseover', function (a) {
+                    children = a.layer.getAllChildMarkers();
+                    console.log(children);
+                });
                 var projects = $scope.filteredData;
                 for (var key in $scope.filteredData) {
                     if((projects[key].latitude != undefined) && (projects[key].longitude != undefined))
-                        L.marker([projects[key].latitude, projects[key].longitude]).bindPopup(projects[key].title).on('mouseover', function(evt) {console.log(evt); evt.target.openPopup(); }).on('mouseout', function(evt) {evt.target.closePopup(); }).addTo(projectsGroup);
+                        var marker = L.marker([projects[key].latitude, projects[key].longitude]).bindPopup(projects[key].title).on('mouseover', function(evt) {evt.target.openPopup(); }).on('mouseout', function(evt) {evt.target.closePopup(); });
+                        marker.budget = projects[key].amount;
+                        marker.addTo(projectsGroup);
                 }
             }
 
