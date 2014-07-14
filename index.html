@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="leaflet/leaflet.markercluster/MarkerCluster.Default.css" />
     <style type="text/css">
         #map { height: 400px; }
+        .cluster: {
+            padding: 10px;
+            background: red;
+        }
     </style>
 </head>
 </script>
@@ -73,7 +77,18 @@
             $scope.state = '';
             $scope.states = [];
 
-            var projectsGroup = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 30, singleMarkerMode: true});
+            var projectsGroup = new L.MarkerClusterGroup({
+                showCoverageOnHover: false, 
+                maxClusterRadius: 30, 
+                singleMarkerMode: true,
+                zoomToBoundsOnClick: false
+                // iconCreateFunction: function (cluster) {
+                //     var markers = cluster.getAllChildMarkers();
+                //     var n = 0;
+                //     n = markers.length++;
+                //     return L.divIcon({ html: '<div class="cluster">' + n + '</div>', className: 'mycluster', iconSize: L.point(40, 40) });
+                // },
+            });
 
             $scope.init = function() {
                 console.log('Requesting remote server...');
@@ -145,16 +160,24 @@
 
             function placeMarkers() {
                 projectsGroup.clearLayers();
-               
+                var popup = L.popup();
                 projectsGroup.addTo($scope.map);
-                projectsGroup.on('clustermouseover', function (a) {
+                projectsGroup.on('clusterclick', function (a) {
                     children = a.layer.getAllChildMarkers();
-                    console.log(children);
+                    console.log(a);
+                    popup.setLatLng(a.latlng)
+                        .setContent('<p>Hello world!<br />This is a nice popup.</p>');
+                    $scope.map.openPopup(popup);
+                })
+                .on('clusterblur', function(a) {
+                    console.log(a);
+                    $scope.map.closePopup(popup);
                 });
+
                 var projects = $scope.filteredData;
                 for (var key in $scope.filteredData) {
                     if((projects[key].latitude != undefined) && (projects[key].longitude != undefined))
-                        var marker = L.marker([projects[key].latitude, projects[key].longitude]).bindPopup(projects[key].title).on('mouseover', function(evt) {evt.target.openPopup(); }).on('mouseout', function(evt) {evt.target.closePopup(); });
+                        var marker = L.marker([projects[key].latitude, projects[key].longitude]).bindPopup(projects[key].title).on('click', function(evt) {evt.target.openPopup(); }).on('blur', function(evt) {evt.target.closePopup(); });
                         marker.budget = projects[key].amount;
                         marker.addTo(projectsGroup);
                 }
