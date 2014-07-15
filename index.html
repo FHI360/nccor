@@ -109,7 +109,7 @@
                 var amount = _.reduce(cluster, function(memo, num) {  
                     return parseInt(memo) + parseInt(num.budget); 
                 }, 0);
-                var popupMsg = '<h3>' + cluster.length + ' projects</h3>' + '<div>Budget amount: ' + accounting.formatMoney(amount, '$', 0) + '</div>';
+                var popupMsg = '<h3>' + cluster.length + ' projects</h3>' + '<div>Budget amount: <strong>' + accounting.formatMoney(amount, '$', 0) + '</strong></div>';
                 return popupMsg;
             }
 
@@ -138,7 +138,7 @@
                 for (var key in $scope.filteredData) {
                     if((projects[key].latitude != undefined) && (projects[key].longitude != undefined))
                         var popupMsg = '<h3>' + projects[key].title + '</h3>'
-                        + '<div>Budget: ' + accounting.formatMoney(projects[key].amount, '$', 0) + '</div>';
+                        + '<div>Budget amount: <strong>' + accounting.formatMoney(projects[key].amount, '$', 0) + '</strong></div>';
                         var marker = L.marker([projects[key].latitude, projects[key].longitude]).bindPopup(popupMsg, {offset: new L.Point(0,-10)}).on('click', function(evt) {evt.target.openPopup(); }).on('blur', function(evt) {evt.target.closePopup(); });
                         marker.budget = projects[key].amount;
                         marker.addTo(projectsGroup);
