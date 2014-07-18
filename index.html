@@ -19,38 +19,40 @@
 <body data-ng-app="nccor">
     <div data-ng-controller="NccorCtrl" data-ng-init="init()">
         <h3>Showing {{filteredData.length}} records.</h3>
+        <h4 data-ng-if="message.length>0">{{message}} <img src="images/loading.gif"></h4>
 
-        <label for="year">Year</label>
+        <form id="keyword-search" data-ng-submit="processSearch(searchString)">
+            <input type="text" placeholder="Search by keywords..." data-ng-model="searchString"></input>
+            <button type="submit" class="btn btn-success btn-lg btn-block">Search</button>
+        </form>
+        <br>
+
+        <label for="year">Year:</label>
         <select name="year" data-ng-change="processData()" data-ng-model="year">
             <option value="">- Show all -</option>
             <option data-ng-repeat="y in years" value="{{y}}">{{y}}</option>
         </select>
 
-        <label for="agency">Agency</label>
+        <label for="agency">Agency:</label>
         <select name="agency" data-ng-change="processData()" data-ng-model="agency">
             <option value="">- Show all -</option>
             <option data-ng-repeat="a in agencies" value="{{a}}">{{a}}</option>
         </select>
 
-        <label for="funder">Funder</label>
+        <label for="funder">Funder:</label>
         <select name="funder" data-ng-change="processData()" data-ng-model="funder">
             <option value="">- Show all -</option>
             <option data-ng-repeat="f in funders" value="{{f}}">{{f}}</option>
         </select>
 
-        <label for="state">State</label>
+        <label for="state">State:</label>
         <select name="state" data-ng-change="processData()" data-ng-model="state">
             <option value="">- Show all -</option>
             <option data-ng-repeat="s in states" value="{{s}}">{{s}}</option>
         </select>
 
-        <form id="keyword-search" data-ng-submit="processSearch(searchString)">
-            <input type="text" placeholder="Search by keywords..." data-ng-model="searchString"></input>
-            <button type="submit" class="btn btn-success btn-lg btn-block">
-                <span class="glyphicon glyphicon-flash"></span> Submit!
-            </button>
-        </form>
-        
+        <button data-ng-click="resetFilters()">Reset filters</button>
+        <br><br>
 
         <!-- <leaflet center="center" markers="markers" layers="layers" width="640px" height="480px"></leaflet> -->
 
@@ -62,7 +64,7 @@
 
     </div>
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+<script src="underscore/underscore-min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
 <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
@@ -92,6 +94,7 @@
             $scope.state = '';
             $scope.states = [];
             $scope.searchString = '';
+            $scope.message = '';
 
             var projectsGroup = new L.MarkerClusterGroup({
                 showCoverageOnHover: false, 
@@ -107,12 +110,21 @@
             });
 
             $scope.init = function() {
+                $scope.message='Loading data...';
                 console.log('Requesting remote server...');
-                getAllProjects();
+
+                var projects = $scope.getProjects();
+                initData(projects);
             };
 
+            $scope.resetFilters = function() {
+                $scope.searchString = '';
+                $scope.getProjects();
+            }
+
             $scope.processSearch = function(search) {
-                getAllProjects(search);
+                $scope.message='Searching...';
+                $scope.getProjects(search);
             }
 
             function initMap() {
@@ -170,7 +182,6 @@
             }
 
 	        $scope.processData = function() {
-
                 $scope.filteredData = _.chain($scope.data)
                     .filter(function(el) {
                         if($scope.funder=='') return true;
@@ -198,26 +209,46 @@
                 console.log($scope.filteredData);
             };
 
-            function getAllProjects(search) {
-                if(search === undefined)
-                    var responsePromise = $http.jsonp('http://map.nccor.org/projects/all?callback=JSON_CALLBACK');
-                else
-                    var responsePromise = $http.jsonp('http://map.nccor.org/projects/search-results/?search_api_views_fulltext='+ search +'&callback=JSON_CALLBACK');
+            $scope.getProjects = function(search) {
 
-                responsePromise.success(function(data, status, headers, config) {
-                    console.log( "Got data from remote server" );
-                    initData(data);
-                    //console.table(data);
-                });
-                responsePromise.error(function(data, status, headers, config) {
-                    console.log("JSONP failed!"); 
-                    return [];
-                });
+                if(_.isEmpty($scope.cachedData) || search !== undefined) {
+
+                    var url = 'http://map.nccor.org/projects/all?callback=JSON_CALLBACK';
+
+                    if(search !== undefined) {
+                        url = 'http://map.nccor.org/projects/search-results/?search_api_views_fulltext='+ search +'&callback=JSON_CALLBACK';
+                    }
+                
+                    var responsePromise = $http.jsonp(url);
+
+                    responsePromise.success(function(data, status, headers, config) {
+                        console.log( 'Got data from remote server' );
+                        if(search === undefined) {
+                            $scope.cachedData = data;
+                        }
+                        initData(data);
+                        $scope.message='';
+                    });
+                    responsePromise.error(function(data, status, headers, config) {
+                        console.log('JSONP failed!');
+                        $scope.message='ERROR: Could not get data.';
+                        initData([]);
+                    });
+                }
+                else {
+                    initData($scope.cachedData);
+                }
             }
 
             function initData(data) {
                 $scope.filteredData = $scope.data = data;
                 renderFilters($scope.filteredData);
+
+                $scope.state = "";
+                $scope.year = "";
+                $scope.funder = "";
+                $scope.agency = "";
+
                 initMap();
                 placeMarkers();
             }
