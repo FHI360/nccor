@@ -20,6 +20,7 @@
 <link href="../../css/global.css" rel="stylesheet" type="text/css" />
 <link href="../../css/dropdown.css" media="screen" rel="stylesheet" type="text/css" />
 <link href="../../css/default.advanced.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="css/map.css" rel="stylesheet" type="text/css" />
 <!--[if IE 6]><link href="../css/ie6-override.css" type="text/css" rel="stylesheet" media="screen" /><![endif]-->
 </head>
 
@@ -35,7 +36,7 @@
     
     <div id="content">
   
-        <div class="content-right">
+        <div class="content-full-width">
 			
             <p class="breadcrumbs">
         	<a href="../../index.php" alt="Home">Home</a> &nbsp;&gt;&nbsp; <a href="../index.php" alt="Home">Tools</a> &nbsp;&gt;&nbsp; Project Map
