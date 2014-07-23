@@ -46,7 +46,7 @@
             </p>
             
             <h1>Project Map</h1>
-            <h3 data-ng-show="!loaded">Loading map... <img src="images/loading.gif"></h3>
+            <h3 data-ng-show="!loaded" class="loading-map"><img src="images/loading-map.gif"></h3>
             <div id="map-container">
               <p>The Project Map is a searchable database of projects.</p>
 

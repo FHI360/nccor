@@ -16,3 +16,7 @@
 	visibility: hidden;
 	height: 0;
 }
+
+.loading-map {
+	margin: 0 auto;
+}
