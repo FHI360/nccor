@@ -126,15 +126,16 @@ angular.module('nccor', [])
                     if($scope.year=='') return true;
                     var years=Array($scope.year);
                     return _.intersection(years, Array(el.year)).length > 0;
-        })
+                })
                 .filter(function(el) {
                     if($scope.state=='') return true;
                     var states=Array($scope.state);
                     return _.intersection(states, Array(el.state)).length > 0;
-        })
+                })
                 .value();
-            placeMarkers();
-            console.log($scope.filteredData);
+                   
+                placeMarkers();
+                console.log($scope.filteredData);
         };
 
         $scope.getProjects = function(search) {
@@ -159,6 +160,7 @@ angular.module('nccor', [])
                     $scope.loaded = true;
                     $('#map-container').css("visibility", "visible");
                     $('#map-container').css("height", "auto");
+                    //$('.multiselect').multiselect();
                 });
                 responsePromise.error(function(data, status, headers, config) {
                     console.log('JSONP failed!');
