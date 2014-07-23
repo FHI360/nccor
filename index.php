@@ -21,6 +21,9 @@
 <link href="../../css/dropdown.css" media="screen" rel="stylesheet" type="text/css" />
 <link href="../../css/default.advanced.css" media="screen" rel="stylesheet" type="text/css" />
 <link href="css/map.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="leaflet/leaflet.css" />
+<link rel="stylesheet" href="leaflet/leaflet.markercluster/MarkerCluster.css" />
+<link rel="stylesheet" href="leaflet/leaflet.markercluster/MarkerCluster.Default.css" />
 <!--[if IE 6]><link href="../css/ie6-override.css" type="text/css" rel="stylesheet" media="screen" /><![endif]-->
 </head>
 
@@ -34,9 +37,9 @@
 
   </div><!--end banner-->
     
-    <div id="content">
+    <div id="content" data-ng-app="nccor">
   
-        <div class="content-full-width">
+        <div class="content-full-width" data-ng-controller="NccorCtrl" data-ng-init="init()">
 			
             <p class="breadcrumbs">
         	<a href="../../index.php" alt="Home">Home</a> &nbsp;&gt;&nbsp; <a href="../index.php" alt="Home">Tools</a> &nbsp;&gt;&nbsp; Project Map
@@ -45,6 +48,48 @@
             <h1>Project Map</h1>
             
             <p>The Project Map is a searchable database of projects.</p>
+
+            <h3>Showing {{filteredData.length}} records.</h3>
+
+            <label for="year">Year</label>
+            <select name="year" data-ng-change="processData()" data-ng-model="year">
+                <option value="">- Show all -</option>
+                <option data-ng-repeat="y in years" value="{{y}}">{{y}}</option>
+            </select>
+
+            <label for="agency">Agency</label>
+            <select name="agency" data-ng-change="processData()" data-ng-model="agency">
+                <option value="">- Show all -</option>
+                <option data-ng-repeat="a in agencies" value="{{a}}">{{a}}</option>
+            </select>
+
+            <label for="funder">Funder</label>
+            <select name="funder" data-ng-change="processData()" data-ng-model="funder">
+                <option value="">- Show all -</option>
+                <option data-ng-repeat="f in funders" value="{{f}}">{{f}}</option>
+            </select>
+
+            <label for="state">State</label>
+            <select name="state" data-ng-change="processData()" data-ng-model="state">
+                <option value="">- Show all -</option>
+                <option data-ng-repeat="s in states" value="{{s}}">{{s}}</option>
+            </select>
+
+            <form id="keyword-search" data-ng-submit="processSearch(searchString)">
+                <input type="text" placeholder="Search by keywords..." data-ng-model="searchString"></input>
+                <button type="submit" class="btn btn-success btn-lg btn-block">
+                    <span class="glyphicon glyphicon-flash"></span> Submit!
+                </button>
+            </form>
+            
+
+            <!-- <leaflet center="center" markers="markers" layers="layers" width="640px" height="480px"></leaflet> -->
+
+            <div id="map"></div>
+
+            <ul ng-model="filteredData">
+                <li data-ng-repeat="datum in filteredData">{{datum.title}} : {{datum.funder}} : {{datum.agency}} : {{datum.state}} : {{datum.year}}</li>
+            </ul>
           	
           <!-- the map -->
 
@@ -67,7 +112,18 @@
 <script type="text/javascript" src="../../js/rollover.js"></script>
 <script type="text/javascript" src="../../js/search.js"></script>
 <!--LOAD Google Analytics Tracking of Outbound Clicks / Downloads -->
-    <script src="../../js/ga-tracking-downloads-outbound.js"></script>
+<script src="../../js/ga-tracking-downloads-outbound.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+<script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+<script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
+<script src="leaflet/google/leaflet-google-plugin.js"></script>
+<script src="http://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+<script src="accounting/accounting.min.js"></script>
+<script src="controller/map-controller.js"></script>
+
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
