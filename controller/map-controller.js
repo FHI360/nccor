@@ -22,6 +22,7 @@ angular.module('nccor', [])
         $scope.states = [];
         $scope.searchString = '';
         $scope.message = '';
+        $scope.loaded = false;
 
         var projectsGroup = new L.MarkerClusterGroup({
             showCoverageOnHover: false, 
@@ -155,6 +156,7 @@ angular.module('nccor', [])
                     }
                     initData(data);
                     $scope.message='';
+                    $scope.loaded = true;
                 });
                 responsePromise.error(function(data, status, headers, config) {
                     console.log('JSONP failed!');
