@@ -1,0 +1,13 @@
+#map { height: 400px; }
+.cluster: {
+    padding: 10px;
+    background: red;
+}
+.leaflet-popup-tip-container {
+    margin: -1px auto;
+}
+
+.content-full-width {
+	width: 914px;
+	padding: 0 40px;
+}
