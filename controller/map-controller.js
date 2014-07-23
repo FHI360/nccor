@@ -1,7 +1,7 @@
 'use strict';
 
 //NCCOR Map Controller
-angular.module('nccor', [])
+angular.module('nccor', ['angularjs-dropdown-multiselect'])
     .controller('NccorCtrl', ['$scope', '$http', function($scope, $http){
         
         $scope.center = {
@@ -12,13 +12,12 @@ angular.module('nccor', [])
 
         $scope.data = {};
         $scope.filteredData = {};
-        $scope.year = '';
         $scope.years = [];
-        $scope.agency = '';
-        $scope.agencies = [];
+        // $scope.agency = '';
+        // $scope.agencies = [];
+        $scope.topics = [];
         $scope.funder = '';
         $scope.funders = [];
-        $scope.state = '';
         $scope.states = [];
         $scope.searchString = '';
         $scope.message = '';
@@ -37,12 +36,21 @@ angular.module('nccor', [])
             // },
         });
 
+        $scope.uncheckAllTopics = function() {
+            $scope.topic = [];
+            $scope.processData();
+        }
+
+        $scope.uncheckAllYears = function() {
+            $scope.year = [];
+            $scope.processData();
+        }
+
         $scope.init = function() {
             $scope.message='Loading data...';
             console.log('Requesting remote server...');
 
             var projects = $scope.getProjects();
-            initData(projects);
         };
 
         $scope.resetFilters = function() {
@@ -67,7 +75,7 @@ angular.module('nccor', [])
             var amount = _.reduce(cluster, function(memo, num) {  
                 return parseInt(memo) + parseInt(num.budget); 
             }, 0);
-            var popupMsg = '<h3>' + cluster.length + ' projects</h3>' + '<div>Budget amount: <strong>' + accounting.formatMoney(amount, '$', 0) + '</strong></div>';
+            var popupMsg = '<h5>' + cluster.length + ' projects</h5>' + '<div>Budget amount: <strong>' + accounting.formatMoney(amount, '$', 0) + '</strong></div>';
             return popupMsg;
         }
 
@@ -100,7 +108,7 @@ angular.module('nccor', [])
             for (var key in $scope.filteredData) {
                 if((projects[key].latitude !== undefined) && (projects[key].longitude !== undefined)) {
                     
-                    var popupMsg = '<h3>' + projects[key].title + '</h3>'
+                    var popupMsg = '<h5>' + projects[key].title + '</h5>'
                     + '<div>Budget amount: <strong>' + accounting.formatMoney(projects[key].amount, '$', 0) + '</strong></div>';
                     var marker = L.marker([projects[key].latitude, projects[key].longitude]).bindPopup(popupMsg, {offset: new L.Point(0,-10)}).on('click', function(evt) {evt.target.openPopup(); }).on('blur', function(evt) {evt.target.closePopup(); });
                     marker.budget = projects[key].amount;
@@ -116,15 +124,21 @@ angular.module('nccor', [])
                     var funders=Array($scope.funder);
                     return _.intersection(funders, Array(el.funder)).length > 0;
                 })
+                // .filter(function(el) {
+                //     if($scope.agency=='') return true;
+                //     var agencies = [];
+                //     agencies=Array($scope.agency);
+                //     return _.intersection(agencies, Array(el.agency)).length > 0;
+                // })
                 .filter(function(el) {
-                    if($scope.agency=='') return true;
-                    var agencies = [];
-                    agencies=Array($scope.agency);
-                    return _.intersection(agencies, Array(el.agency)).length > 0;
+                    if($scope.topic=='') return true;
+                    var topics = _.map($scope.topic, function(el) {return el.id;});
+
+                    return _.intersection(topics, el.topics).length > 0;
                 })
                 .filter(function(el) {
                     if($scope.year=='') return true;
-                    var years=Array($scope.year);
+                    var years = _.map($scope.year, function(el) {return el.id;});
                     return _.intersection(years, Array(el.year)).length > 0;
                 })
                 .filter(function(el) {
@@ -135,7 +149,7 @@ angular.module('nccor', [])
                 .value();
                    
                 placeMarkers();
-                console.log($scope.filteredData);
+                //console.log($scope.filteredData);
         };
 
         $scope.getProjects = function(search) {
@@ -174,13 +188,22 @@ angular.module('nccor', [])
         }
 
         function initData(data) {
+
+            for (var key in data) {
+                if(typeof data[key].topics === 'string') {
+                    data[key].topics = data[key].topics.split(",");
+                }
+            }
+
+            console.log(data);
             $scope.filteredData = $scope.data = data;
             renderFilters($scope.filteredData);
 
             $scope.state = "";
-            $scope.year = "";
+            $scope.year = [];
             $scope.funder = "";
-            $scope.agency = "";
+            // $scope.agency = "";
+            $scope.topic = [];
 
             initMap();
             placeMarkers();
@@ -188,9 +211,17 @@ angular.module('nccor', [])
 
         function renderFilters(data) {
             $scope.funders = _.chain(data).uniq(function(obj) {return obj.funder}).map(function(el) { return el.funder }).sortBy(function(el) { return el; }).value();
-            $scope.years = _.chain(data).uniq(function(obj) {return obj.year}).map(function(el) { return el.year }).sortBy(function(el) { return el; }).value();
-            $scope.agencies= _.chain(data).uniq(function(obj) {return obj.agency}).map(function(el) { return el.agency }).sortBy(function(el) { return el; }).value();
+            $scope.years = _.chain(data).uniq(function(obj) {return obj.year}).map(function(el) { return el.year }).sortBy(function(el) { return el; }).map(function(el){return {id:el, label:el}}).value();
+            // $scope.agencies = _.chain(data).uniq(function(obj) {return obj.agency}).map(function(el) { return el.agency }).sortBy(function(el) { return el; }).value();
+            
+            $scope.topics = _.chain(data).map(function(obj){return obj.topics}).flatten().uniq().map(function(el){return {id:el, label:el}}).value();
+            
             $scope.states= _.chain(data).uniq(function(obj) {return obj.state}).map(function(el) { return el.state }).filter(function(el) {return el!=undefined}).sortBy(function(el) { return el; }).value();
         }
+
+        // $scope.$watchCollection('topic', function(newVal, oldVal) {
+        //     console.log($scope.topic);
+        //     $scope.processData();
+        // });
 
     }]);
