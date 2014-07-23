@@ -11,3 +11,7 @@
 	width: 914px;
 	padding: 0 40px;
 }
+
+#map-container {
+	display: hidden;
+}

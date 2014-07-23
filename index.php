@@ -47,10 +47,10 @@
             
             <h1>Project Map</h1>
             <h3 data-ng-show="!loaded">Loading map...</h3>
-            <div data-ng-show="loaded">
+            <div id="map-container">
               <p>The Project Map is a searchable database of projects.</p>
 
-              <h3>Showing {{filteredData.length}} records.</h3>
+              <h3>Showing {{filteredData.length}} projects.</h3>
               <h4 data-ng-if="message.length>0">{{message}} <img src="images/loading.gif"></h4>
 
               <form id="keyword-search" data-ng-submit="processSearch(searchString)">
