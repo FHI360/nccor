@@ -77,7 +77,7 @@ angular.module('nccor', [])
             projectsGroup.addTo($scope.map);
             projectsGroup
                 .on('clusterclick', function (a) {
-                    children = a.layer.getAllChildMarkers();
+                    var children = a.layer.getAllChildMarkers();
                     console.log(children);
                     popup.setLatLng(a.latlng)
                         .setContent(processCluster(children));
