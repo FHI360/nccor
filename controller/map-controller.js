@@ -157,7 +157,7 @@ angular.module('nccor', [])
                     initData(data);
                     $scope.message='';
                     $scope.loaded = true;
-                    $('#map-container').show();
+                    $('#map-container').css("visibility", "visible");
                 });
                 responsePromise.error(function(data, status, headers, config) {
                     console.log('JSONP failed!');

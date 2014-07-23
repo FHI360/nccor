@@ -13,5 +13,5 @@
 }
 
 #map-container {
-	display: none;
+	visibility: hidden;
 }
