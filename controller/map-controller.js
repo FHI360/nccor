@@ -21,6 +21,7 @@ angular.module('nccor', [])
         $scope.state = '';
         $scope.states = [];
         $scope.searchString = '';
+        $scope.message = '';
 
         var projectsGroup = new L.MarkerClusterGroup({
             showCoverageOnHover: false, 
@@ -36,12 +37,21 @@ angular.module('nccor', [])
         });
 
         $scope.init = function() {
+            $scope.message='Loading data...';
             console.log('Requesting remote server...');
-            getAllProjects();
+
+            var projects = $scope.getProjects();
+            initData(projects);
         };
 
+        $scope.resetFilters = function() {
+            $scope.searchString = '';
+            $scope.getProjects();
+        }
+
         $scope.processSearch = function(search) {
-            getAllProjects(search);
+            $scope.message='Searching...';
+            $scope.getProjects(search);
         }
 
         function initMap() {
@@ -99,7 +109,6 @@ angular.module('nccor', [])
         }
 
         $scope.processData = function() {
-
             $scope.filteredData = _.chain($scope.data)
                 .filter(function(el) {
                     if($scope.funder=='') return true;
@@ -108,44 +117,65 @@ angular.module('nccor', [])
                 })
                 .filter(function(el) {
                     if($scope.agency=='') return true;
-                    var agencies=Array($scope.agency);
+                    var agencies = [];
+                    agencies=Array($scope.agency);
                     return _.intersection(agencies, Array(el.agency)).length > 0;
                 })
                 .filter(function(el) {
                     if($scope.year=='') return true;
                     var years=Array($scope.year);
                     return _.intersection(years, Array(el.year)).length > 0;
-	    })
+        })
                 .filter(function(el) {
                     if($scope.state=='') return true;
                     var states=Array($scope.state);
                     return _.intersection(states, Array(el.state)).length > 0;
-	    })
+        })
                 .value();
             placeMarkers();
             console.log($scope.filteredData);
         };
 
-        function getAllProjects(search) {
-            if(search === undefined)
-                var responsePromise = $http.jsonp('http://map.nccor.org/projects/all?callback=JSON_CALLBACK');
-            else
-                var responsePromise = $http.jsonp('http://map.nccor.org/projects/search-results/?search_api_views_fulltext='+ search +'&callback=JSON_CALLBACK');
+        $scope.getProjects = function(search) {
 
-            responsePromise.success(function(data, status, headers, config) {
-                console.log( "Got data from remote server" );
-                initData(data);
-                //console.table(data);
-            });
-            responsePromise.error(function(data, status, headers, config) {
-                console.log("JSONP failed!"); 
-                return [];
-            });
+            if(_.isEmpty($scope.cachedData) || search !== undefined) {
+
+                var url = 'http://map.nccor.org/projects/all?callback=JSON_CALLBACK';
+
+                if(search !== undefined) {
+                    url = 'http://map.nccor.org/projects/search-results/?search_api_views_fulltext='+ search +'&callback=JSON_CALLBACK';
+                }
+            
+                var responsePromise = $http.jsonp(url);
+
+                responsePromise.success(function(data, status, headers, config) {
+                    console.log( 'Got data from remote server' );
+                    if(search === undefined) {
+                        $scope.cachedData = data;
+                    }
+                    initData(data);
+                    $scope.message='';
+                });
+                responsePromise.error(function(data, status, headers, config) {
+                    console.log('JSONP failed!');
+                    $scope.message='ERROR: Could not get data.';
+                    initData([]);
+                });
+            }
+            else {
+                initData($scope.cachedData);
+            }
         }
 
         function initData(data) {
             $scope.filteredData = $scope.data = data;
             renderFilters($scope.filteredData);
+
+            $scope.state = "";
+            $scope.year = "";
+            $scope.funder = "";
+            $scope.agency = "";
+
             initMap();
             placeMarkers();
         }

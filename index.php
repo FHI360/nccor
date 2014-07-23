@@ -50,38 +50,40 @@
             <p>The Project Map is a searchable database of projects.</p>
 
             <h3>Showing {{filteredData.length}} records.</h3>
+            <h4 data-ng-if="message.length>0">{{message}} <img src="images/loading.gif"></h4>
 
-            <label for="year">Year</label>
+            <form id="keyword-search" data-ng-submit="processSearch(searchString)">
+                <input type="text" placeholder="Search by keywords..." data-ng-model="searchString"></input>
+                <button type="submit" class="btn btn-success btn-lg btn-block">Search</button>
+            </form>
+            <br>
+
+            <label for="year">Year:</label>
             <select name="year" data-ng-change="processData()" data-ng-model="year">
                 <option value="">- Show all -</option>
                 <option data-ng-repeat="y in years" value="{{y}}">{{y}}</option>
             </select>
 
-            <label for="agency">Agency</label>
+            <label for="agency">Agency:</label>
             <select name="agency" data-ng-change="processData()" data-ng-model="agency">
                 <option value="">- Show all -</option>
                 <option data-ng-repeat="a in agencies" value="{{a}}">{{a}}</option>
             </select>
 
-            <label for="funder">Funder</label>
+            <label for="funder">Funder:</label>
             <select name="funder" data-ng-change="processData()" data-ng-model="funder">
                 <option value="">- Show all -</option>
                 <option data-ng-repeat="f in funders" value="{{f}}">{{f}}</option>
             </select>
 
-            <label for="state">State</label>
+            <label for="state">State:</label>
             <select name="state" data-ng-change="processData()" data-ng-model="state">
                 <option value="">- Show all -</option>
                 <option data-ng-repeat="s in states" value="{{s}}">{{s}}</option>
             </select>
 
-            <form id="keyword-search" data-ng-submit="processSearch(searchString)">
-                <input type="text" placeholder="Search by keywords..." data-ng-model="searchString"></input>
-                <button type="submit" class="btn btn-success btn-lg btn-block">
-                    <span class="glyphicon glyphicon-flash"></span> Submit!
-                </button>
-            </form>
-            
+            <button data-ng-click="resetFilters()">Reset filters</button>
+            <br><br>
 
             <!-- <leaflet center="center" markers="markers" layers="layers" width="640px" height="480px"></leaflet> -->
 
