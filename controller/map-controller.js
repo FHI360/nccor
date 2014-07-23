@@ -108,8 +108,7 @@ angular.module('nccor', [])
                 })
                 .filter(function(el) {
                     if($scope.agency=='') return true;
-                    var agencies = [];
-                    agencies=Array($scope.agency);
+                    var agencies=Array($scope.agency);
                     return _.intersection(agencies, Array(el.agency)).length > 0;
                 })
                 .filter(function(el) {
