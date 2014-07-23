@@ -23,8 +23,9 @@
 <link rel="stylesheet" href="leaflet/leaflet.css" />
 <link rel="stylesheet" href="leaflet/leaflet.markercluster/MarkerCluster.css" />
 <link rel="stylesheet" href="leaflet/leaflet.markercluster/MarkerCluster.Default.css" />
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link href="css/map.css" rel="stylesheet" type="text/css" />
+<link href="buutstrap/multiselect.min.css" rel="stylesheet" type="text/css" />
 <!--[if IE 6]><link href="../css/ie6-override.css" type="text/css" rel="stylesheet" media="screen" /><![endif]-->
 </head>
 
@@ -41,7 +42,7 @@
     <div id="content" data-ng-app="nccor">
   
         <div class="content-full-width" data-ng-controller="NccorCtrl" data-ng-init="init()">
-			
+            
             <p class="breadcrumbs">
               <a href="../../index.php" alt="Home">Home</a> &nbsp;&gt;&nbsp; <a href="../index.php" alt="Home">Tools</a> &nbsp;&gt;&nbsp; Project Map
             </p>
@@ -54,14 +55,19 @@
               <h3>Showing {{filteredData.length}} projects.</h3>
               <h4 data-ng-if="message.length>0">{{message}} <img src="images/loading.gif"></h4>
 
-              <form id="keyword-search" data-ng-submit="processSearch(searchString)">
-                  <input type="text" placeholder="Search by keywords..." data-ng-model="searchString"></input>
-                  <button type="submit" class="btn btn-success btn-lg btn-block">Search</button>
+              <form id="keyword-search" data-ng-submit="processSearch(searchString)" class="form-inline" role="form">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input class="form-control"  type="search" placeholder="Search by keywords..." data-ng-model="searchString"></input>
+                    <span class="input-group-btn"><button type="submit" class="btn btn-primary btn-md btn-block"><span class="glyphicon glyphicon-search"></span></button></span>
+
+                  </div>
+                </div>
               </form>
               <br>
 
               <label for="year">Year:</label>
-              <select name="year" data-ng-change="processData()" data-ng-model="year">
+              <select name="year" data-ng-change="processData()" data-ng-model="year" class="multiselect" multiple="multiple">
                   <option value="">- Show all -</option>
                   <option data-ng-repeat="y in years" value="{{y}}">{{y}}</option>
               </select>
@@ -95,7 +101,7 @@
                   <li data-ng-repeat="datum in filteredData">{{datum.title}} : {{datum.funder}} : {{datum.agency}} : {{datum.state}} : {{datum.year}}</li>
               </ul>
             </div>
-          	
+            
           <!-- the map -->
 
           <!-- end the map -->
@@ -126,8 +132,10 @@
 <script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
 <script src="leaflet/google/leaflet-google-plugin.js"></script>
 <script src="http://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="accounting/accounting.min.js"></script>
 <script src="controller/map-controller.js"></script>
+<script src="bootstrap/multiselect.min.js"></script>
 
 <script type="text/javascript">
 
