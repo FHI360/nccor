@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="leaflet/leaflet.css" />
 <link rel="stylesheet" href="leaflet/leaflet.markercluster/MarkerCluster.css" />
 <link rel="stylesheet" href="leaflet/leaflet.markercluster/MarkerCluster.Default.css" />
-
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="css/map.css" rel="stylesheet" type="text/css" />
 <!--[if IE 6]><link href="../css/ie6-override.css" type="text/css" rel="stylesheet" media="screen" /><![endif]-->
 </head>
