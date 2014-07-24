@@ -47,7 +47,7 @@
               <a href="../../index.php" alt="Home">Home</a> &nbsp;&gt;&nbsp; <a href="../index.php" alt="Home">Tools</a> &nbsp;&gt;&nbsp; Project Map
             </p>
             
-            <h1>Project Map</h1>
+            <h1>Projects Map</h1>
             <h3 data-ng-show="!loaded" class="loading-map"><img src="images/loading-map.gif"><br>LOADING MAP...</h3>
             <div id="map-container">
               <p>The Project Map is a searchable database of projects.</p>

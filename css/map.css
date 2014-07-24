@@ -25,6 +25,16 @@
 	height: 34px;
 }
 
+.content-right h1 {
+	font-family: "alternate-gothic-no-2-d",sans-serif;
+	text-transform: uppercase;
+	color: #4d493b;
+	font-weight: 400;
+	font-size: 4em;
+	margin: 0 0 20px;
+	letter-spacing: -0.02em;
+}
+
 /* fixes for nccor.org elements broken by bootstrap */
 input.q {
 	line-height: normal;
@@ -51,3 +61,4 @@ a.hide-text:hover {
 	font-size: 0px\9;
 	color: rgba(0, 0, 0, 0);
 }
+
