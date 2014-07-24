@@ -42,8 +42,12 @@ input.q {
 	box-sizing: border-box;
 }
 
-.bootstrap input, .bootstrap button, .bootstrap select, .bootstrap textarea {
-	font-family: inherit;
-	font-size: inherit;
-	line-height: inherit;
+input.go {
+	font-size: 13px;
+	line-height: normal;
+}
+
+a.hide-text:hover {
+	font-size: 0px\9;
+	color: rgba(0, 0, 0, 0);
 }
