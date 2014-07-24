@@ -24,3 +24,8 @@
 .btn-md {
 	height: 34px;
 }
+
+/*fix for nccor.org search box*/
+input.q {
+	line-height: normal;
+}
