@@ -1,5 +1,3 @@
-<?php
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -93,11 +91,12 @@
                 <ul><li data-ng-repeat="s in state">{{s.id}}</li></ul>
               </div>
           
-              <h3>Showing {{filteredData.length}} projects.</h3>
-              <br><br>
+              <h4>Showing {{filteredData.length}} projects.</h4>
+              <br>
 
               <div id="map"></div>
-
+              <br>
+              
               <ul ng-model="filteredData">
                   <li data-ng-repeat="datum in filteredData">{{datum.title}} : {{datum.funder}} : {{datum.agency}} : {{datum.state}} : {{datum.year}}</li>
               </ul>
