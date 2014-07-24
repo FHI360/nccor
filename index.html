@@ -14,7 +14,8 @@
 <meta property="og:title" content="NCCOR" />
 <meta property="og:description" content="The National Collaborative on Childhood Obesity Research (NCCOR) brings together four of the nation's leading research funders – the Centers for Disease Control and Prevention (CDC), the National Institutes of Health (NIH), the Robert Wood Johnson Foundation (RWJF), and the U.S. Department of Agriculture (USDA) – to address the problem of childhood obesity in America." />
 
-<link href="bootstrap/multiselect.min.css" rel="stylesheet" type="text/css" />
+ 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link href="../../css/redesign-2014/header-redesign-style.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
 <link href="../../css/global.css" rel="stylesheet" type="text/css" />
@@ -23,8 +24,8 @@
 <link rel="stylesheet" href="leaflet/leaflet.css" />
 <link rel="stylesheet" href="leaflet/leaflet.markercluster/MarkerCluster.css" />
 <link rel="stylesheet" href="leaflet/leaflet.markercluster/MarkerCluster.Default.css" />
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link href="css/map.css" rel="stylesheet" type="text/css" />
+<link href="bootstrap/multiselect.min.css" rel="stylesheet" type="text/css" />
 <!--[if IE 6]><link href="../css/ie6-override.css" type="text/css" rel="stylesheet" media="screen" /><![endif]-->
 </head>
 
