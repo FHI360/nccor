@@ -25,7 +25,13 @@
 	height: 34px;
 }
 
-/*fix for nccor.org search box*/
+/* fixes for nccor.org elements broken by bootstrap */
 input.q {
 	line-height: normal;
+}
+
+* {
+	-webkit-box-sizing: inherit;
+	-moz-box-sizing: inherit;
+	box-sizing: inherit;
 }
