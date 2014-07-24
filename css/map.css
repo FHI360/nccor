@@ -25,6 +25,10 @@
 	height: 34px;
 }
 
+.btn .caret {
+	margin-left: 6px;
+}
+
 .content-full-width h1 {
 	font-family: "alternate-gothic-no-2-d",sans-serif;
 	text-transform: uppercase;
