@@ -41,3 +41,9 @@ input.q {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
+
+.bootstrap input, .bootstrap button, .bootstrap select, .bootstrap textarea {
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+}
