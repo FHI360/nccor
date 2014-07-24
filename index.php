@@ -41,7 +41,7 @@
     
     <div id="content" data-ng-app="nccor">
   
-        <div class="content-full-width" data-ng-controller="NccorCtrl" data-ng-init="init()">
+        <div class="content-full-width bootstrap" data-ng-controller="NccorCtrl" data-ng-init="init()">
             
             <p class="breadcrumbs">
               <a href="../../index.php" alt="Home">Home</a> &nbsp;&gt;&nbsp; <a href="../index.php" alt="Home">Tools</a> &nbsp;&gt;&nbsp; Project Map
