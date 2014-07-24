@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="leaflet/leaflet.markercluster/MarkerCluster.Default.css" />
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link href="css/map.css" rel="stylesheet" type="text/css" />
-<link href="buutstrap/multiselect.min.css" rel="stylesheet" type="text/css" />
+<link href="bootstrap/multiselect.min.css" rel="stylesheet" type="text/css" />
 <!--[if IE 6]><link href="../css/ie6-override.css" type="text/css" rel="stylesheet" media="screen" /><![endif]-->
 </head>
 
@@ -65,8 +65,37 @@
                 </div>
               </form>
               <br>
+              <div class="row">
+                <div class="col-md-2">
+                  <div data-ng-dropdown-multiselect="" options="topics" selected-model="topic" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Topics', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllTopics}"></div>
+                </div>
 
-              <label for="year">Year:</label>
+                <div class="col-md-2">
+                  <div data-ng-dropdown-multiselect="" options="years" selected-model="year" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Years', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllYears}"></div>
+                </div>
+
+                <div class="col-md-2">
+                  <div data-ng-dropdown-multiselect="" options="funders" selected-model="funder" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Funders', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllFunders}"></div>
+                </div>
+
+                <div class="col-md-2">
+                  <div data-ng-dropdown-multiselect="" options="states" selected-model="state" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select States', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllStates}"></div>
+                </div>
+
+                <div class="col-md-2">
+                  <button data-ng-click="resetFilters()" class="btn btn-primary">Reset all filters</button>
+                </div>
+              </div>
+
+              <div class="row">
+                <ul><li data-ng-repeat="t in topic">{{t.id}}</li></ul>
+                <ul><li data-ng-repeat="y in year">{{y.id}}</li></ul>
+                <ul><li data-ng-repeat="f in funder">{{f.id}}</li></ul>
+                <ul><li data-ng-repeat="s in state">{{s.id}}</li></ul>
+              </div>
+                          
+
+              <!-- <label for="year">Year:</label>
               <select name="year" data-ng-change="processData()" data-ng-model="year" class="multiselect" multiple="multiple">
                   <option value="">- Show all -</option>
                   <option data-ng-repeat="y in years" value="{{y}}">{{y}}</option>
@@ -76,21 +105,20 @@
               <select name="agency" data-ng-change="processData()" data-ng-model="agency">
                   <option value="">- Show all -</option>
                   <option data-ng-repeat="a in agencies" value="{{a}}">{{a}}</option>
-              </select>
+              </select> -->
 
-              <label for="funder">Funder:</label>
+              <!-- <label for="funder">Funder:</label>
               <select name="funder" data-ng-change="processData()" data-ng-model="funder">
                   <option value="">- Show all -</option>
                   <option data-ng-repeat="f in funders" value="{{f}}">{{f}}</option>
-              </select>
+              </select> -->
 
-              <label for="state">State:</label>
+             <!--  <label for="state">State:</label>
               <select name="state" data-ng-change="processData()" data-ng-model="state">
                   <option value="">- Show all -</option>
                   <option data-ng-repeat="s in states" value="{{s}}">{{s}}</option>
-              </select>
+              </select> -->
 
-              <button data-ng-click="resetFilters()">Reset filters</button>
               <br><br>
 
               <!-- <leaflet center="center" markers="markers" layers="layers" width="640px" height="480px"></leaflet> -->
@@ -125,7 +153,8 @@
 <!--LOAD Google Analytics Tracking of Outbound Clicks / Downloads -->
 <script src="../../js/ga-tracking-downloads-outbound.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
 <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
@@ -133,6 +162,7 @@
 <script src="leaflet/google/leaflet-google-plugin.js"></script>
 <script src="http://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="dropdown-multiselect/angularjs-dropdown-multiselect.min.js"></script>
 <script src="accounting/accounting.min.js"></script>
 <script src="controller/map-controller.js"></script>
 <script src="bootstrap/multiselect.min.js"></script>

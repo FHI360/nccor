@@ -46,6 +46,16 @@ angular.module('nccor', ['angularjs-dropdown-multiselect'])
             $scope.processData();
         }
 
+        $scope.uncheckAllFunders = function() {
+            $scope.funder = [];
+            $scope.processData();
+        }
+
+        $scope.uncheckAllStates = function() {
+            $scope.funder = [];
+            $scope.processData();
+        }
+
         $scope.init = function() {
             $scope.message='Loading data...';
             console.log('Requesting remote server...');
@@ -119,17 +129,18 @@ angular.module('nccor', ['angularjs-dropdown-multiselect'])
 
         $scope.processData = function() {
             $scope.filteredData = _.chain($scope.data)
-                .filter(function(el) {
-                    if($scope.funder=='') return true;
-                    var funders=Array($scope.funder);
-                    return _.intersection(funders, Array(el.funder)).length > 0;
-                })
+                
                 // .filter(function(el) {
                 //     if($scope.agency=='') return true;
                 //     var agencies = [];
                 //     agencies=Array($scope.agency);
                 //     return _.intersection(agencies, Array(el.agency)).length > 0;
                 // })
+                .filter(function(el) {
+                    if($scope.funder=='') return true;
+                    var funders = _.map($scope.funder, function(el) {return el.id;});
+                    return _.intersection(funders, Array(el.funder)).length > 0;
+                })
                 .filter(function(el) {
                     if($scope.topic=='') return true;
                     var topics = _.map($scope.topic, function(el) {return el.id;});
@@ -143,7 +154,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect'])
                 })
                 .filter(function(el) {
                     if($scope.state=='') return true;
-                    var states=Array($scope.state);
+                    var states = _.map($scope.state, function(el) {return el.id;});
                     return _.intersection(states, Array(el.state)).length > 0;
                 })
                 .value();
@@ -199,24 +210,22 @@ angular.module('nccor', ['angularjs-dropdown-multiselect'])
             $scope.filteredData = $scope.data = data;
             renderFilters($scope.filteredData);
 
-            $scope.state = "";
+            $scope.funder = [];
+            $scope.state = [];
             $scope.year = [];
-            $scope.funder = "";
-            // $scope.agency = "";
             $scope.topic = [];
+            // $scope.agency = "";
 
             initMap();
             placeMarkers();
         }
 
         function renderFilters(data) {
-            $scope.funders = _.chain(data).uniq(function(obj) {return obj.funder}).map(function(el) { return el.funder }).sortBy(function(el) { return el; }).value();
-            $scope.years = _.chain(data).uniq(function(obj) {return obj.year}).map(function(el) { return el.year }).sortBy(function(el) { return el; }).map(function(el){return {id:el, label:el}}).value();
+            $scope.funders = _.chain(data).uniq(function(obj) {return obj.funder}).filter(function(el) {return el.funder!=undefined}).map(function(el) { return {id:el.funder, label:el.funder} }).value();
+            $scope.states  = _.chain(data).uniq(function(obj) {return obj.state}).filter(function(el) {return el.state!=undefined}).map(function(el) { return {id:el.state, label:el.state} }).sortBy(function(el) { return el; }).value();
+            $scope.years   = _.chain(data).uniq(function(obj) {return obj.year}).filter(function(el) {return el.year!=undefined}).sortBy(function(el) { return el.year; }).map(function(el) { return {id:el.year, label:el.year} }).value();
+            $scope.topics  = _.chain(data).map(function(obj){return obj.topics}).flatten().uniq().filter(function(el) {return el!=undefined}).map(function(el){return {id:el, label:el}}).value();
             // $scope.agencies = _.chain(data).uniq(function(obj) {return obj.agency}).map(function(el) { return el.agency }).sortBy(function(el) { return el; }).value();
-            
-            $scope.topics = _.chain(data).map(function(obj){return obj.topics}).flatten().uniq().map(function(el){return {id:el, label:el}}).value();
-            
-            $scope.states= _.chain(data).uniq(function(obj) {return obj.state}).map(function(el) { return el.state }).filter(function(el) {return el!=undefined}).sortBy(function(el) { return el; }).value();
         }
 
         // $scope.$watchCollection('topic', function(newVal, oldVal) {
