@@ -52,7 +52,6 @@
             <div id="map-container">
               <p>The Project Map is a searchable database of projects.</p>
 
-              <h3>Showing {{filteredData.length}} projects.</h3>
               <h4 data-ng-if="message.length>0">{{message}} <img src="images/loading.gif"></h4>
 
               <form id="keyword-search" data-ng-submit="processSearch(searchString)" class="form-inline" role="form">
@@ -93,35 +92,9 @@
                 <ul><li data-ng-repeat="f in funder">{{f.id}}</li></ul>
                 <ul><li data-ng-repeat="s in state">{{s.id}}</li></ul>
               </div>
-                          
-
-              <!-- <label for="year">Year:</label>
-              <select name="year" data-ng-change="processData()" data-ng-model="year" class="multiselect" multiple="multiple">
-                  <option value="">- Show all -</option>
-                  <option data-ng-repeat="y in years" value="{{y}}">{{y}}</option>
-              </select>
-
-              <label for="agency">Agency:</label>
-              <select name="agency" data-ng-change="processData()" data-ng-model="agency">
-                  <option value="">- Show all -</option>
-                  <option data-ng-repeat="a in agencies" value="{{a}}">{{a}}</option>
-              </select> -->
-
-              <!-- <label for="funder">Funder:</label>
-              <select name="funder" data-ng-change="processData()" data-ng-model="funder">
-                  <option value="">- Show all -</option>
-                  <option data-ng-repeat="f in funders" value="{{f}}">{{f}}</option>
-              </select> -->
-
-             <!--  <label for="state">State:</label>
-              <select name="state" data-ng-change="processData()" data-ng-model="state">
-                  <option value="">- Show all -</option>
-                  <option data-ng-repeat="s in states" value="{{s}}">{{s}}</option>
-              </select> -->
-
+          
+              <h3>Showing {{filteredData.length}} projects.</h3>
               <br><br>
-
-              <!-- <leaflet center="center" markers="markers" layers="layers" width="640px" height="480px"></leaflet> -->
 
               <div id="map"></div>
 
