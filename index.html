@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ng="http://angularjs.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>NCCOR National Collaborative on Childhood Obesity Research</title>
@@ -25,6 +25,18 @@
 <link href="css/map.css" rel="stylesheet" type="text/css" />
 <link href="bootstrap/multiselect.min.css" rel="stylesheet" type="text/css" />
 <!--[if IE 6]><link href="../css/ie6-override.css" type="text/css" rel="stylesheet" media="screen" /><![endif]-->
+<!--[if lte IE 8]>
+    <script>
+      document.createElement('ng-include');
+      document.createElement('ng-pluralize');
+      document.createElement('ng-view');
+
+      // Optionally these for CSS
+      document.createElement('ng:include');
+      document.createElement('ng:pluralize');
+      document.createElement('ng:view');
+    </script>
+<![endif]-->
 </head>
 
 <body>
@@ -37,7 +49,7 @@
 
   </div><!--end banner-->
     
-    <div id="content" data-ng-app="nccor">
+    <div id="ng-app" data-ng-app="nccor">
   
         <div class="content-full-width bootstrap" data-ng-controller="NccorCtrl" data-ng-init="init()">
             
