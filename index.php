@@ -24,6 +24,7 @@
 <link rel="stylesheet" href="leaflet/leaflet.markercluster/MarkerCluster.Default.css" />
 <link href="css/map.css" rel="stylesheet" type="text/css" />
 <link href="bootstrap/multiselect.min.css" rel="stylesheet" type="text/css" />
+<link href="slider/jquery-ui-trimmed.css" rel="stylesheet" type="text/css" />
 <!--[if IE 6]><link href="../css/ie6-override.css" type="text/css" rel="stylesheet" media="screen" /><![endif]-->
 <!--[if lte IE 8]>
     <script>
@@ -109,6 +110,8 @@
                 <ul><li data-ng-repeat="y in year">{{y.id}}</li></ul>
                 <ul><li data-ng-repeat="f in funder">{{f.id}}</li></ul>
                 <ul><li data-ng-repeat="s in state">{{s.id}}</li></ul>
+
+                <div ui-slider="{range: true}" min="-1.00" max="1.00" step="0.01" use-decimals ng-model="amountRange"></div>
               </div>
           
               <h4>Showing {{filteredData.length}} projects.</h4>
@@ -159,6 +162,8 @@
 <script src="accounting/accounting.min.js"></script>
 <script src="controller/map-controller.js"></script>
 <script src="bootstrap/multiselect.min.js"></script>
+<script src="slider/jquery-ui.min.js"></script>
+<script src="slider/angular-ui-slider.js"></script>
 
 <script type="text/javascript">
 

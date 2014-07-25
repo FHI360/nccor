@@ -24,6 +24,7 @@
 <link rel="stylesheet" href="leaflet/leaflet.markercluster/MarkerCluster.Default.css" />
 <link href="css/map.css" rel="stylesheet" type="text/css" />
 <link href="bootstrap/multiselect.min.css" rel="stylesheet" type="text/css" />
+<link href="slider/jquery-ui-trimmed.css" rel="stylesheet" type="text/css" />
 <!--[if IE 6]><link href="../css/ie6-override.css" type="text/css" rel="stylesheet" media="screen" /><![endif]-->
 <!--[if lte IE 8]>
     <script>
@@ -104,6 +105,16 @@
                 </div>
               </div>
 
+              <div class="row">&nbsp;</div>
+              <div class="row"><div class="col-sm-6">{{amountRange[0] | currency}}</div></div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div ui-slider="slider.options" min="{{minRange}}" max="{{maxRange}}" step="50000" ng-model="amountRange"></div>
+                </div>
+              </div>
+              <div class="row"><div class="col-sm-6 text-right">{{amountRange[1] | currency}}</div></div>
+              <div class="row">&nbsp;</div>
+
               <div class="row">
                 <ul><li data-ng-repeat="t in topic">{{t.id}}</li></ul>
                 <ul><li data-ng-repeat="y in year">{{y.id}}</li></ul>
@@ -116,7 +127,7 @@
 
               <div id="map"></div>
               <br>
-
+              
               <ul ng-model="filteredData">
                   <li data-ng-repeat="datum in filteredData">{{datum.title}} : {{datum.funder}} : {{datum.agency}} : {{datum.state}} : {{datum.year}}</li>
               </ul>
@@ -141,7 +152,6 @@
 <script type="text/javascript" src="../../js/jquery/jquery.js"></script>
 <script type="text/javascript" src="../../js/jquery/jquery.dropdown.js"></script>
 <![endif]-->
-
 <script type="text/javascript" src="../../js/rollover.js"></script>
 <script type="text/javascript" src="../../js/search.js"></script>
 <!--LOAD Google Analytics Tracking of Outbound Clicks / Downloads -->
@@ -160,6 +170,8 @@
 <script src="accounting/accounting.min.js"></script>
 <script src="controller/map-controller.js"></script>
 <script src="bootstrap/multiselect.min.js"></script>
+<script src="slider/jquery-ui.min.js"></script>
+<script src="slider/angular-ui-slider.js"></script>
 
 <script type="text/javascript">
 
