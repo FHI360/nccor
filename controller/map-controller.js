@@ -7,7 +7,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect'])
         $scope.center = {
                 lat: 24.0391667,
                 lng: 121.525,
-                zoom: 6,
+                zoom: 6
             };
 
         $scope.data = {};
