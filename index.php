@@ -40,6 +40,9 @@
       .col {
         display: inline-block;
       }
+      .map-search {
+        width: 275
+      }
     </style>
 <![endif]-->
 </head>
@@ -72,7 +75,7 @@
               <form id="keyword-search" data-ng-submit="processSearch(searchString)" class="form-inline" role="form">
                 <div class="form-group">
                   <div class="input-group">
-                    <input class="form-control"  type="search" placeholder="Search by keywords..." data-ng-model="searchString"></input>
+                    <input class="form-control map-search"  type="search" placeholder="Search by keywords..." data-ng-model="searchString"></input>
                     <span class="input-group-btn"><button type="submit" class="btn btn-primary btn-md btn-block"><span class="glyphicon glyphicon-search"></span></button></span>
 
                   </div>
