@@ -29,6 +29,10 @@
 	margin-left: 6px;
 }
 
+.dropdown-menu li {
+	cursor: pointer;
+}
+
 .content-full-width h1 {
 	font-family: "alternate-gothic-no-2-d",sans-serif;
 	text-transform: uppercase;
