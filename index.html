@@ -41,7 +41,7 @@
         display: inline-block;
       }
       #keyword-search {
-        width: 275
+        width: 275px;
       }
     </style>
 <![endif]-->
