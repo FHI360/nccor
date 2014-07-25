@@ -105,13 +105,21 @@
                 </div>
               </div>
 
+              <div class="row">&nbsp;</div>
+              <div class="row"><div class="col-sm-6">{{amountRange[0] | currency}}</div></div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div ui-slider="slider.options" min="{{minRange}}" max="{{maxRange}}" step="50000" ng-model="amountRange"></div>
+                </div>
+              </div>
+              <div class="row"><div class="col-sm-6 text-right">{{amountRange[1] | currency}}</div></div>
+              <div class="row">&nbsp;</div>
+
               <div class="row">
                 <ul><li data-ng-repeat="t in topic">{{t.id}}</li></ul>
                 <ul><li data-ng-repeat="y in year">{{y.id}}</li></ul>
                 <ul><li data-ng-repeat="f in funder">{{f.id}}</li></ul>
                 <ul><li data-ng-repeat="s in state">{{s.id}}</li></ul>
-
-                <div ui-slider="{range: true}" min="-1.00" max="1.00" step="0.01" use-decimals ng-model="amountRange"></div>
               </div>
           
               <h4>Showing {{filteredData.length}} projects.</h4>
