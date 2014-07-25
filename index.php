@@ -49,7 +49,7 @@
 
   </div><!--end banner-->
     
-    <div id="ng-app" data-ng-app="nccor">
+    <div id="data-ng-app" data-ng-app="nccor">
   
         <div class="content-full-width bootstrap" data-ng-controller="NccorCtrl" data-ng-init="init()">
             
