@@ -36,6 +36,11 @@
       document.createElement('ng:pluralize');
       document.createElement('ng:view');
     </script>
+    <style>
+      .col {
+        display: inline-block;
+      }
+    </style>
 <![endif]-->
 </head>
 
@@ -75,23 +80,23 @@
               </form>
               <br>
               <div class="row">
-                <div class="col-md-2">
+                <div class="col col-md-2">
                   <div data-ng-dropdown-multiselect="" options="topics" selected-model="topic" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Topics', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllTopics}"></div>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col col-md-2">
                   <div data-ng-dropdown-multiselect="" options="years" selected-model="year" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Years', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllYears}"></div>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col col-md-2">
                   <div data-ng-dropdown-multiselect="" options="funders" selected-model="funder" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Funders', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllFunders}"></div>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col col-md-2">
                   <div data-ng-dropdown-multiselect="" options="states" selected-model="state" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select States', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllStates}"></div>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col col-md-2">
                   <button data-ng-click="resetFilters()" class="btn btn-primary">Reset all filters</button>
                 </div>
               </div>
