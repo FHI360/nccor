@@ -48,8 +48,8 @@
 <?php include("../../includes/2014-header-buttons.php") ?>
 
   </div><!--end banner-->
-    
-    <div id="data-ng-app" data-ng-app="nccor">
+  <div class="content">
+      <div id="data-ng-app" data-ng-app="nccor">
   
         <div class="content-full-width bootstrap" data-ng-controller="NccorCtrl" data-ng-init="init()">
             
@@ -118,7 +118,8 @@
 
           <!-- end the map -->
 
-</div><!--end content-right-->
+        </div><!--end content-full-width-->
+    </div><!--end ng-app-->
   </div><!--end content-->
     
 <? include("../../includes/grand-footer.txt") ?>
