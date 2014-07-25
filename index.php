@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ng="http://angularjs.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>NCCOR National Collaborative on Childhood Obesity Research</title>
@@ -25,6 +25,26 @@
 <link href="css/map.css" rel="stylesheet" type="text/css" />
 <link href="bootstrap/multiselect.min.css" rel="stylesheet" type="text/css" />
 <!--[if IE 6]><link href="../css/ie6-override.css" type="text/css" rel="stylesheet" media="screen" /><![endif]-->
+<!--[if lte IE 8]>
+    <script>
+      document.createElement('ng-include');
+      document.createElement('ng-pluralize');
+      document.createElement('ng-view');
+
+      // Optionally these for CSS
+      document.createElement('ng:include');
+      document.createElement('ng:pluralize');
+      document.createElement('ng:view');
+    </script>
+    <style>
+      .col {
+        display: inline-block;
+      }
+      #keyword-search {
+        width: 275px;
+      }
+    </style>
+<![endif]-->
 </head>
 
 <body>
@@ -36,8 +56,8 @@
 <?php include("../../includes/2014-header-buttons.php") ?>
 
   </div><!--end banner-->
-    
-    <div id="content" data-ng-app="nccor">
+  <div id="content">
+      <div id="data-ng-app" data-ng-app="nccor">
   
         <div class="content-full-width bootstrap" data-ng-controller="NccorCtrl" data-ng-init="init()">
             
@@ -63,23 +83,23 @@
               </form>
               <br>
               <div class="row">
-                <div class="col-md-2">
+                <div class="col col-md-2">
                   <div data-ng-dropdown-multiselect="" options="topics" selected-model="topic" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Topics', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllTopics}"></div>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col col-md-2">
                   <div data-ng-dropdown-multiselect="" options="years" selected-model="year" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Years', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllYears}"></div>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col col-md-2">
                   <div data-ng-dropdown-multiselect="" options="funders" selected-model="funder" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Funders', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllFunders}"></div>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col col-md-2">
                   <div data-ng-dropdown-multiselect="" options="states" selected-model="state" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select States', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllStates}"></div>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col col-md-2">
                   <button data-ng-click="resetFilters()" class="btn btn-primary">Reset all filters</button>
                 </div>
               </div>
@@ -106,7 +126,8 @@
 
           <!-- end the map -->
 
-</div><!--end content-right-->
+        </div><!--end content-full-width-->
+    </div><!--end ng-app-->
   </div><!--end content-->
     
 <? include("../../includes/grand-footer.txt") ?>
@@ -127,7 +148,7 @@
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
 <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
 <script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>

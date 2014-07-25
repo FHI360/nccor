@@ -96,7 +96,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect'])
             projectsGroup
                 .on('clusterclick', function (a) {
                     var children = a.layer.getAllChildMarkers();
-                    console.log(children);
+                    //console.log(children);
                     popup.setLatLng(a.latlng)
                         .setContent(processCluster(children));
                     $scope.map.openPopup(popup);
