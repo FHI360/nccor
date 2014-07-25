@@ -48,7 +48,7 @@
 <?php include("../../includes/2014-header-buttons.php") ?>
 
   </div><!--end banner-->
-  <div class="content">
+  <div id="content">
       <div id="data-ng-app" data-ng-app="nccor">
   
         <div class="content-full-width bootstrap" data-ng-controller="NccorCtrl" data-ng-init="init()">
