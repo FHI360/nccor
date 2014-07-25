@@ -10,7 +10,7 @@
 .content-full-width {
 	width: 914px;
 	padding: 0 40px;
-	overflow: none;
+	overflow: hidden;
 }
 
 #map-container {
