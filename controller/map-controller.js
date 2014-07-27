@@ -60,7 +60,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider'])
         }
 
         $scope.uncheckAllStates = function() {
-            $scope.states = [];
+            $scope.state = [];
             $scope.processData();
         }
 
