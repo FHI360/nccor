@@ -145,7 +145,8 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider'])
                 //     return _.intersection(agencies, Array(el.agency)).length > 0;
                 // })
                 .filter(function(el) {
-                    if($scope.funder===[]) return true;
+                    if($scope.funder===[]) 
+                        return true;
                     var funders = _.map($scope.funder, function(el) {return el.id;});
                     return _.intersection(funders, Array(el.funder)).length > 0;
                 })
