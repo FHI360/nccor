@@ -145,29 +145,28 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider'])
                 //     return _.intersection(agencies, Array(el.agency)).length > 0;
                 // })
                 .filter(function(el) {
-                    if($scope.funder===[]) 
-                        return true;
+                    if($scope.funder.length === 0) return true;
                     var funders = _.map($scope.funder, function(el) {return el.id;});
                     return _.intersection(funders, Array(el.funder)).length > 0;
                 })
                 .filter(function(el) {
-                    if($scope.topic===[]) return true;
+                    if($scope.topic.length === 0) return true;
                     var topics = _.map($scope.topic, function(el) {return el.id;});
 
                     return _.intersection(topics, el.topics).length > 0;
                 })
                 .filter(function(el) {
-                    if($scope.year===[]) return true;
+                    if($scope.year.length === 0) return true;
                     var years = _.map($scope.year, function(el) {return el.id;});
                     return _.intersection(years, Array(el.year)).length > 0;
                 })
                 .filter(function(el) {
-                    if($scope.state===[]) return true;
+                    if($scope.state.length === 0) return true;
                     var states = _.map($scope.state, function(el) {return el.id;});
                     return _.intersection(states, Array(el.state)).length > 0;
                 })
                 .filter(function(el) {
-                    if($scope.amountRange===[100000,1000000]) return true;
+                    if($scope.amountRange === [100000,1000000]) return true;
                     //var states = _.map($scope.state, function(el) {return el.id;});
                     return el.amount >= $scope.amountRange[0] && el.amount <= $scope.amountRange[1];
                 })
