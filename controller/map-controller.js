@@ -166,7 +166,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider'])
                     return _.intersection(states, Array(el.state)).length > 0;
                 })
                 .filter(function(el) {
-                    if($scope.amountRange === scope.dataAmountRange) return true;
+                    if($scope.amountRange === $scope.dataAmountRange) return true;
                     //var states = _.map($scope.state, function(el) {return el.id;});
                     return el.amount >= $scope.amountRange[0] && el.amount <= $scope.amountRange[1];
                 })
