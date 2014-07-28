@@ -18,7 +18,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider'])
         $scope.topics = [];
         $scope.funders = [];
         $scope.states = [];
-        $scope.amountRange = [100000, 1000000];
+        $scope.amountRange = $scope.dataAmountRange = [100000, 1000000];
         $scope.searchString = '';
         $scope.message = '';
         $scope.loaded = false;
@@ -166,7 +166,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider'])
                     return _.intersection(states, Array(el.state)).length > 0;
                 })
                 .filter(function(el) {
-                    if($scope.amountRange === [100000,1000000]) return true;
+                    if($scope.amountRange === scope.dataAmountRange) return true;
                     //var states = _.map($scope.state, function(el) {return el.id;});
                     return el.amount >= $scope.amountRange[0] && el.amount <= $scope.amountRange[1];
                 })
@@ -182,7 +182,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider'])
             $scope.years   = _.chain(data).uniq(function(obj) {return obj.year}).filter(function(el) {return el.year!=undefined}).sortBy(function(el) { return el.year; }).map(function(el) { return {id:el.year, label:el.year} }).value();
             $scope.topics  = _.chain(data).map(function(obj){return obj.topics}).flatten().uniq().filter(function(el) {return el!=undefined}).map(function(el){return {id:el, label:el}}).value();
             var amounts = _.chain(data).uniq(function(obj) {return obj.amount}).filter(function(el) {return el.amount!=undefined}).map(function(el) { return el.amount }).value();
-            $scope.amountRange = [parseInt(_.min(amounts)), parseInt(_.max(amounts))];
+            $scope.amountRange $scope.dataAmountRange = [parseInt(_.min(amounts)), parseInt(_.max(amounts))];
 
             // $scope.agencies = _.chain(data).uniq(function(obj) {return obj.agency}).map(function(el) { return el.agency }).sortBy(function(el) { return el; }).value();
         }
