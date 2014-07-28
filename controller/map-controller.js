@@ -2,7 +2,7 @@
 
 //NCCOR Map Controller
 angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider'])
-    .controller('NccorCtrl', ['$scope', '$http', function($scope, $http){
+    .controller('NccorCtrl', ['$scope', '$http', '$filter', function($scope, $http, $filter){
         
         $scope.center = {
                 lat: 24.0391667,
@@ -93,7 +93,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider'])
             var amount = _.reduce(cluster, function(memo, num) {  
                 return parseInt(memo) + parseInt(num.budget); 
             }, 0);
-            var popupMsg = '<h5>' + cluster.length + ' projects</h5>' + '<div>Budget amount: <strong>' + accounting.formatMoney(amount, '$', 0) + '</strong></div>';
+            var popupMsg = '<h5>' + cluster.length + ' projects</h5>' + '<div>Budget amount: <strong>$' + $filter('number')(amount, 0) + '</strong></div>';
             return popupMsg;
         }
 
@@ -127,7 +127,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider'])
                 if((projects[key].latitude !== undefined) && (projects[key].longitude !== undefined)) {
                     
                     var popupMsg = '<h5>' + projects[key].title + '</h5>'
-                    + '<div>Budget amount: <strong>' + accounting.formatMoney(projects[key].amount, '$', 0) + '</strong></div>';
+                    + '<div>Budget amount: <strong>$' + $filter('number')(projects[key].amount, 0) + '</strong></div>';
                     var marker = L.marker([projects[key].latitude, projects[key].longitude]).bindPopup(popupMsg, {offset: new L.Point(0,-10)}).on('click', function(evt) {evt.target.openPopup(); }).on('blur', function(evt) {evt.target.closePopup(); });
                     marker.budget = projects[key].amount;
                     marker.addTo(projectsGroup);

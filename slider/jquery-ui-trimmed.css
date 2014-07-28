@@ -14,7 +14,7 @@ font-size: 1.1em;
 
 .ui-widget-content {
 border: 1px solid #aaaaaa;
-background: #ffffff url(images/ui-bg_flat_75_ffffff_40x100.png) 50% 50% repeat-x;
+background: #ffffff;
 color: #222222;
 }
 
@@ -57,7 +57,7 @@ height: 100%;
 
 .ui-widget-content {
 border: 1px solid #aaaaaa;
-background: #ffffff url(images/ui-bg_flat_75_ffffff_40x100.png) 50% 50% repeat-x;
+background: #ffffff;
 color: #222222;
 }
 
@@ -76,7 +76,7 @@ margin-left: -.6em;
 
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
 border: 1px solid #d3d3d3;
-background: #e6e6e6 url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+background: #e6e6e6;
 font-weight: normal;
 color: #555555;
 }

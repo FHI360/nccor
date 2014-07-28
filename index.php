@@ -167,7 +167,6 @@
 <script src="http://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="dropdown-multiselect/angularjs-dropdown-multiselect.min.js"></script>
-<script src="accounting/accounting.min.js"></script>
 <script src="controller/map-controller.js"></script>
 <script src="bootstrap/multiselect.min.js"></script>
 <script src="slider/jquery-ui.min.js"></script>
