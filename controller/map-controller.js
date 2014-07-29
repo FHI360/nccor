@@ -2,7 +2,7 @@
 
 //NCCOR Map Controller
 angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'ngTable'])
-    .controller('NccorCtrl', ['$scope', '$http', '$filter', 'ngTableParams', function($scope, $http, $filter, ngTableParams){
+    .controller('NccorCtrl', ['$scope', '$rootScope', '$http', '$filter', 'ngTableParams', function($scope, $rootScope, $http, $filter, ngTableParams){
         
         $scope.center = {
                 lat: 24.0391667,
@@ -172,10 +172,10 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'ngTable
                 })
                 .value();
 
-                $scope.$watch('filteredData', function () {
+                //$scope.$watch('filteredData', function () {
                     $scope.tableParams.reload();
                     $scope.tableParams.$params.page = 1;
-                });
+                //});
 
                 placeMarkers();
                 //console.log($scope.filteredData);
@@ -225,6 +225,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'ngTable
             else {
                 initData($scope.cachedData);
             }
+
         }
 
         function initData(data) {
@@ -251,13 +252,16 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'ngTable
                 page: 1,            // show first page
                 count: 25           // count per page
             }, {
+                $scope: $rootScope.$new(),
                 total: $scope.filteredData.length, // length of data
                 getData: function($defer, params) {
                     params.total($scope.filteredData.length);
                     $defer.resolve($scope.filteredData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                },
-                $scope: { $data: {}}
+                }
             });
+
+            $scope.tableParams.reload();
+            $scope.tableParams.$params.page = 1;
 
             initMap();
             placeMarkers();
