@@ -44,6 +44,14 @@
 	letter-spacing: -0.02em;
 }
 
+.ng-table {
+    border: 1px solid #ccc;
+}
+
+table td {
+	min-width: 110px;
+}
+
 /* fixes for nccor.org elements broken by bootstrap */
 input.q {
 	line-height: normal;

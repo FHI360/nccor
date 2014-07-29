@@ -25,6 +25,8 @@
 <link href="css/map.css" rel="stylesheet" type="text/css" />
 <link href="bootstrap/multiselect.min.css" rel="stylesheet" type="text/css" />
 <link href="slider/jquery-ui-trimmed.css" rel="stylesheet" type="text/css" />
+<link href="table/ng-table.min.css" rel="stylesheet" type="text/css" />
+
 <!--[if IE 6]><link href="../css/ie6-override.css" type="text/css" rel="stylesheet" media="screen" /><![endif]-->
 <!--[if lte IE 8]>
     <script>
@@ -106,13 +108,13 @@
               </div>
 
               <div class="row">&nbsp;</div>
-              <div class="row"><div class="col-sm-6">{{amountRange[0] | currency}}</div></div>
+              <div class="row"><div class="col-sm-6">${{amountRange[0] | number}}</div></div>
               <div class="row">
                 <div class="col-sm-6">
                   <div ui-slider="slider.options" min="{{minRange}}" max="{{maxRange}}" step="50000" ng-model="amountRange"></div>
                 </div>
               </div>
-              <div class="row"><div class="col-sm-6 text-right">{{amountRange[1] | currency}}</div></div>
+              <div class="row"><div class="col-sm-6 text-right">${{amountRange[1] | number}}</div></div>
               <div class="row">&nbsp;</div>
 
               <div class="row">
@@ -127,10 +129,14 @@
 
               <div id="map"></div>
               <br>
+
+              <table ng-table="tableParams" class="table ng-table-responsive table-striped table-hover">
+                <tr data-ng-repeat="datum in $data"><td data-title="'Title'" sortable="'title'">{{datum.title}}</td><td data-title="'Funded by'" sortable="'funder'">{{datum.funder}}</td><td data-title="'Agency'" sortable="'agency'">{{datum.agency}}</td><td data-title="'Location'" sortable="'location'">{{datum.state}}</td><td data-title="'FY'" sortable="'fy'">{{datum.year}}</td></tr>
+              </table>
+
+              <p><strong>Page:</strong> {{tableParams.page()}}
+              <p><strong>Count per page:</strong> {{tableParams.count()}}
               
-              <ul ng-model="filteredData">
-                  <li data-ng-repeat="datum in filteredData">{{datum.title}} : {{datum.funder}} : {{datum.agency}} : {{datum.state}} : {{datum.year}}</li>
-              </ul>
             </div>
             
           <!-- the map -->
@@ -171,6 +177,7 @@
 <script src="bootstrap/multiselect.min.js"></script>
 <script src="slider/jquery-ui.min.js"></script>
 <script src="slider/angular-ui-slider.js"></script>
+<script src="table/ng-table.min.js"></script>
 
 <script type="text/javascript">
 

@@ -1,8 +1,8 @@
 'use strict';
 
 //NCCOR Map Controller
-angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider'])
-    .controller('NccorCtrl', ['$scope', '$http', '$filter', function($scope, $http, $filter){
+angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'ngTable'])
+    .controller('NccorCtrl', ['$scope', '$http', '$filter', 'ngTableParams', function($scope, $http, $filter, ngTableParams){
         
         $scope.center = {
                 lat: 24.0391667,
@@ -10,8 +10,8 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider'])
                 zoom: 6
             };
 
-        $scope.data = {};
-        $scope.filteredData = {};
+        $scope.data = [];
+        $scope.filteredData = [];
         $scope.years = [];
         // $scope.agency = '';
         // $scope.agencies = [];
@@ -171,7 +171,12 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider'])
                     return el.amount >= $scope.amountRange[0] && el.amount <= $scope.amountRange[1];
                 })
                 .value();
-                   
+
+                $scope.$watch('filteredData', function () {
+                    $scope.tableParams.reload();
+                    $scope.tableParams.$params.page = 1;
+                });
+
                 placeMarkers();
                 //console.log($scope.filteredData);
         };
@@ -241,6 +246,18 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider'])
             $scope.minRange = 100000;
             $scope.maxRange = 10000000;
             // $scope.agency = "";
+            
+            $scope.tableParams = new ngTableParams({
+                page: 1,            // show first page
+                count: 25           // count per page
+            }, {
+                total: $scope.filteredData.length, // length of data
+                getData: function($defer, params) {
+                    params.total($scope.filteredData.length);
+                    $defer.resolve($scope.filteredData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                },
+                $scope: { $data: {}}
+            });
 
             initMap();
             placeMarkers();
