@@ -1,8 +1,12 @@
-#map { height: 500px; }
+#map { 
+	height: 500px; 
+}
+
 .cluster: {
     padding: 10px;
     background: red;
 }
+
 .leaflet-popup-tip-container {
     margin: -1px auto;
 }
@@ -78,4 +82,3 @@ a.hide-text:hover {
 	font-size: 0px\9;
 	color: rgba(0, 0, 0, 0);
 }
-
