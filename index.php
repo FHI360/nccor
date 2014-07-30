@@ -22,10 +22,11 @@
 <link rel="stylesheet" href="leaflet/leaflet.css" />
 <link rel="stylesheet" href="leaflet/leaflet.markercluster/MarkerCluster.css" />
 <link rel="stylesheet" href="leaflet/leaflet.markercluster/MarkerCluster.Default.css" />
-<link href="css/map.css" rel="stylesheet" type="text/css" />
 <link href="bootstrap/multiselect.min.css" rel="stylesheet" type="text/css" />
 <link href="slider/jquery-ui-trimmed.css" rel="stylesheet" type="text/css" />
-<link href="table/ng-table.min.css" rel="stylesheet" type="text/css" />
+<link href="table/trNgGrid.css" rel="stylesheet" type="text/css" />
+
+<link href="css/map.css" rel="stylesheet" type="text/css" />
 
 <!--[if IE 6]><link href="../css/ie6-override.css" type="text/css" rel="stylesheet" media="screen" /><![endif]-->
 <!--[if lte IE 8]>
@@ -75,46 +76,51 @@
 
               <h4 data-ng-if="message.length>0">{{message}} <img src="images/loading.gif"></h4>
 
-              <form id="keyword-search" data-ng-submit="processSearch(searchString)" class="form-inline" role="form">
-                <div class="form-group">
-                  <div class="input-group">
-                    <input class="form-control"  type="search" placeholder="Search by keywords..." data-ng-model="searchString"></input>
-                    <span class="input-group-btn"><button type="submit" class="btn btn-primary btn-md btn-block"><span class="glyphicon glyphicon-search"></span></button></span>
-
-                  </div>
-                </div>
-              </form>
-              <br>
               <div class="row">
-                <div class="col col-md-2">
-                  <div data-ng-dropdown-multiselect="" options="topics" selected-model="topic" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Topics', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllTopics}"></div>
+
+                <div class="col col-md-3">
+                  <form id="keyword-search" data-ng-submit="processSearch(searchString)" class="form-inline" role="form">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input class="form-control"  type="search" placeholder="Search by keywords..." data-ng-model="searchString"></input>
+                        <span class="input-group-btn"><button type="submit" class="btn btn-primary btn-md btn-block"><span class="glyphicon glyphicon-search"></span></button></span>
+
+                      </div>
+                    </div>
+                  </form>
                 </div>
 
                 <div class="col col-md-2">
-                  <div data-ng-dropdown-multiselect="" options="years" selected-model="year" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Years', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllYears}"></div>
+                  <div data-ng-dropdown-multiselect="" options="topics" selected-model="topic" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Topic(s)', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllTopics}"></div>
                 </div>
 
                 <div class="col col-md-2">
-                  <div data-ng-dropdown-multiselect="" options="funders" selected-model="funder" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Funders', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllFunders}"></div>
+                  <div data-ng-dropdown-multiselect="" options="years" selected-model="year" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Year(s)', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllYears}"></div>
                 </div>
 
                 <div class="col col-md-2">
-                  <div data-ng-dropdown-multiselect="" options="states" selected-model="state" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select States', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllStates}"></div>
+                  <div data-ng-dropdown-multiselect="" options="funders" selected-model="funder" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Funder(s)', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllFunders}"></div>
                 </div>
 
                 <div class="col col-md-2">
-                  <button data-ng-click="resetFilters()" class="btn btn-primary">Reset all filters</button>
+                  <div data-ng-dropdown-multiselect="" options="states" selected-model="state" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select State(s)', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllStates}"></div>
                 </div>
+                
               </div>
 
               <div class="row">&nbsp;</div>
-              <div class="row"><div class="col-sm-6">${{amountRange[0] | number}}</div></div>
               <div class="row">
-                <div class="col-sm-6">
-                  <div ui-slider="slider.options" min="{{minRange}}" max="{{maxRange}}" step="50000" ng-model="amountRange"></div>
+
+                <div class="col-md-6">
+                  <div class="row"><div class="col-md-12">${{amountRange[0] | number}}</div></div>
+                  <div class="row"><div class="col-md-12"><div ui-slider="slider.options" min="{{minRange}}" max="{{maxRange}}" step="50000" ng-model="amountRange"></div></div></div>
+                  <div class="row"><div class="col-md-12 text-right">${{amountRange[1] | number}}</div></div>
+                </div>
+
+                <div class="col col-md-3">
+                  <button data-ng-click="resetFilters()" class="btn btn-primary reset">Reset all filters</button>
                 </div>
               </div>
-              <div class="row"><div class="col-sm-6 text-right">${{amountRange[1] | number}}</div></div>
               <div class="row">&nbsp;</div>
 
               <div class="row">
@@ -130,12 +136,23 @@
               <div id="map"></div>
               <br>
 
-              <table ng-table="tableParams" class="table ng-table-responsive table-striped table-hover">
-                <tr data-ng-repeat="datum in $data"><td data-title="'Title'" sortable="'title'">{{datum.title}}</td><td data-title="'Funded by'" sortable="'funder'">{{datum.funder}}</td><td data-title="'Agency'" sortable="'agency'">{{datum.agency}}</td><td data-title="'Location'" sortable="'location'">{{datum.state}}</td><td data-title="'FY'" sortable="'fy'">{{datum.year}}</td></tr>
+              <table tr-ng-grid="" items="filteredData" page-items="10">
+                <thead>
+                  <tr>
+                    <th field-name="title" display-name="Title" enable-filtering="false" cell-width="30em" display-align="left">
+                    </th><th field-name="year" display-name="Year" enable-filtering="false" cell-width="7em" display-align="left">
+                    </th><th field-name="funder" display-name="Funder" enable-filtering="false" cell-width="7em" display-align="left">
+                    </th><th field-name="agency" display-name="Agency" enable-filtering="false" cell-width="7em" display-align="left">
+                    </th>
+                    </th><th field-name="institution" display-name="Institution" enable-filtering="false" cell-width="15em" display-align="left">
+                    </th>
+                    <th field-name="location" display-name="Location" enable-filtering="false" cell-width="10em" display-align="left">
+                    </th>
+                    </th><th field-name="investigator" display-name="Investigator" enable-filtering="false" cell-width="10em" display-align="left">
+                    </th>
+                  </tr>
+                </thead>
               </table>
-
-              <p><strong>Page:</strong> {{tableParams.page()}}
-              <p><strong>Count per page:</strong> {{tableParams.count()}}
               
             </div>
             
@@ -163,7 +180,6 @@
 <!--LOAD Google Analytics Tracking of Outbound Clicks / Downloads -->
 <script src="../../js/ga-tracking-downloads-outbound.js"></script>
 
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
@@ -177,7 +193,7 @@
 <script src="bootstrap/multiselect.min.js"></script>
 <script src="slider/jquery-ui.min.js"></script>
 <script src="slider/angular-ui-slider.js"></script>
-<script src="table/ng-table.js"></script>
+<script src="table/trNgGrid.min.js"></script>
 
 <script type="text/javascript">
 

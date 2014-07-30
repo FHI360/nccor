@@ -1,8 +1,8 @@
 'use strict';
 
 //NCCOR Map Controller
-angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'ngTable'])
-    .controller('NccorCtrl', ['$scope', '$rootScope', '$http', '$filter', 'ngTableParams', function($scope, $rootScope, $http, $filter, ngTableParams){
+angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGrid'])
+    .controller('NccorCtrl', ['$scope', '$rootScope', '$http', '$filter', function($scope, $rootScope, $http, $filter){
         
         $scope.center = {
                 lat: 24.0391667,
@@ -22,6 +22,8 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'ngTable
         $scope.searchString = '';
         $scope.message = '';
         $scope.loaded = false;
+
+        TrNgGrid.defaultPagerMinifiedPageCountThreshold = 5;
 
         $scope.slider = {
             'options': {
@@ -172,13 +174,9 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'ngTable
                 })
                 .value();
 
-                //$scope.$watch('filteredData', function () {
-                    $scope.tableParams.reload();
-                    $scope.tableParams.$params.page = 1;
-                //});
-
                 placeMarkers();
                 //console.log($scope.filteredData);
+                //tableDirective.navigateToPage(1);
         };
 
         function renderFilters(data) {
@@ -234,6 +232,12 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'ngTable
                 if(typeof data[key].topics === 'string') {
                     data[key].topics = data[key].topics.split(",");
                 }
+                if(typeof data[key].investigator === 'object') {
+                    data[key].investigator = htmlDecode(data[key].investigator.join(","));
+                }
+
+                data[key].title = htmlDecode(data[key].title);
+                data[key].institution = htmlDecode(data[key].institution);
             }
 
             console.log(data);
@@ -248,28 +252,14 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'ngTable
             $scope.maxRange = 10000000;
             // $scope.agency = "";
             
-            $scope.tableParams = new ngTableParams({
-                page: 1,            // show first page
-                count: 25           // count per page
-            }, {
-                $scope: $rootScope.$new(),
-                total: $scope.filteredData.length, // length of data
-                getData: function($defer, params) {
-                    params.total($scope.filteredData.length);
-                    $defer.resolve($scope.filteredData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                }
-            });
-
-            $scope.tableParams.reload();
-            $scope.tableParams.$params.page = 1;
-
             initMap();
             placeMarkers();
         }
 
-        // $scope.$watchCollection('topic', function(newVal, oldVal) {
-        //     console.log($scope.topic);
-        //     $scope.processData();
-        // });
+        function htmlDecode(html) {
+            var div = document.createElement("div");
+            div.innerHTML = html;
+            return div.childNodes[0].nodeValue;
+        }
 
     }]);
