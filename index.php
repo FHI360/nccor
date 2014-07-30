@@ -9,7 +9,7 @@
 
 <link rel="shortcut icon" type="image/x-icon" href="http://nccor.org/images/favicon.ico" />
 
-<meta property="og:title" content="NCCOR" />
+<meta property="og:title" content="NCCOR Interactive Funding Map" />
 <meta property="og:description" content="The National Collaborative on Childhood Obesity Research (NCCOR) brings together four of the nation's leading research funders – the Centers for Disease Control and Prevention (CDC), the National Institutes of Health (NIH), the Robert Wood Johnson Foundation (RWJF), and the U.S. Department of Agriculture (USDA) – to address the problem of childhood obesity in America." />
 
  
@@ -66,13 +66,13 @@
         <div class="content-full-width bootstrap" data-ng-controller="NccorCtrl" data-ng-init="init()">
             
             <p class="breadcrumbs">
-              <a href="../../index.php" alt="Home">Home</a> &nbsp;&gt;&nbsp; <a href="../index.php" alt="Home">Tools</a> &nbsp;&gt;&nbsp; Project Map
+              <a href="../../index.php" alt="Home">Home</a> &nbsp;&gt;&nbsp; <a href="../index.php" alt="Home">Tools</a> &nbsp;&gt;&nbsp; NCCOR Interactive Funding Map
             </p>
             
-            <h1>Projects Map</h1>
+            <h1>NCCOR Interactive Funding Map</h1>
             <h3 data-ng-show="!loaded" class="loading-map"><img src="images/loading-map.gif"><br>LOADING MAP...</h3>
             <div id="map-container">
-              <p>The Project Map is a searchable database of projects.</p>
+              <p>[PLACEHOLDER] The Project Map is a searchable database of projects.</p>
 
               <h4 data-ng-if="message.length>0">{{message}} <img src="images/loading.gif"></h4>
 
@@ -91,10 +91,6 @@
                 </div>
 
                 <div class="col col-md-2">
-                  <div data-ng-dropdown-multiselect="" options="topics" selected-model="topic" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Topic(s)', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllTopics}"></div>
-                </div>
-
-                <div class="col col-md-2">
                   <div data-ng-dropdown-multiselect="" options="years" selected-model="year" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Year(s)', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllYears}"></div>
                 </div>
 
@@ -106,6 +102,10 @@
                   <div data-ng-dropdown-multiselect="" options="states" selected-model="state" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select State(s)', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllStates}"></div>
                 </div>
                 
+                <div class="col col-md-2">
+                  <div data-ng-dropdown-multiselect="" options="topics" selected-model="topic" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Topic(s)', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllTopics}"></div>
+                </div>
+
               </div>
 
               <div class="row">&nbsp;</div>
@@ -130,13 +130,13 @@
                 <ul><li data-ng-repeat="s in state">{{s.id}}</li></ul>
               </div>
           
-              <h4>Showing {{filteredData.length}} projects.</h4>
+              <h4>Showing {{filteredData.length}} projects</h4>
               <br>
 
               <div id="map"></div>
               <br>
 
-              <table tr-ng-grid="" items="filteredData" page-items="10">
+              <table tr-ng-grid="" items="filteredData" page-items="10" selection-mode="0">
                 <thead>
                   <tr>
                     <th field-name="title" display-name="Title" enable-filtering="false" cell-width="30em" display-align="left">

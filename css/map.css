@@ -52,6 +52,26 @@
 	top: 14px;
 }
 
+.tr-ng-grid .tr-ng-column-header .tr-ng-title {
+	padding-right: 1em;
+}
+
+.tr-ng-grid thead {
+	background: #eee;
+}
+
+.tr-ng-grid td[field-name="title"] {
+	background: #E7F4FF;
+}
+
+.table-hover>tbody>tr:hover>td {
+	background-color: #E7F4FF;
+}
+
+.table-hover>tbody>tr:hover>td[field-name="title"] {
+	background-color: #E0ECF8;
+}
+
 /* fixes for nccor.org elements broken by bootstrap */
 input.q {
 	line-height: normal;
