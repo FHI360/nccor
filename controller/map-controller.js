@@ -129,7 +129,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
             var nids = _.map(cluster, function(el) { return el.nid; } );
             var popupMsg = '<h5>' + cluster.length + ' projects</h5>' + '<div>Combined budget amount: <strong>$' + $filter('number')(amount, 0) + '</strong></div>';
             if($scope.map.getZoom() == $scope.map.getMaxZoom()) {
-                popupMsg += '<div class="scroll-link-container"><a href="#table" class="scroll-link" onclick="animateScroll(this);">View details below</a></div>';
+                popupMsg += '<div class="scroll-link-container"><a class="scroll-link" onclick="animateScroll(\'#table\');">View details below</a></div>';
             }
             else {
                 popupMsg += '<div class="scroll-link-container">Doubleclick on marker to zoom closer</div>';   
@@ -164,7 +164,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
                 if((projects[key].latitude !== undefined) && (projects[key].longitude !== undefined)) {
                     
                     var popupMsg = '<h5>' + projects[key].title + '</h5>'
-                    + '<div>Budget amount: <strong>$' + $filter('number')(projects[key].amount, 0) + '</strong></div><div class="scroll-link-container"><a href="#table" class="scroll-link" onclick="animateScroll(this);">View details below</a></div>';
+                    + '<div>Budget amount: <strong>$' + $filter('number')(projects[key].amount, 0) + '</strong></div><div class="scroll-link-container"><a class="scroll-link" onclick="animateScroll(\'#table\');">View details below</a></div>';
                     var marker = L.marker([projects[key].latitude, projects[key].longitude])
                         .bindPopup(popupMsg, {offset: new L.Point(0,-10)})
                         .on('click', function(evt) {

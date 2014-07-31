@@ -79,6 +79,10 @@
 	font-weight: bold;
 }
 
+.scroll-link {
+	cursor: pointer;
+}
+
 /* fixes for nccor.org elements broken by bootstrap */
 input.q {
 	line-height: normal;

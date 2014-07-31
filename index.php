@@ -131,7 +131,6 @@
               </div>
           
               <h4>Showing {{filteredData.length}} projects</h4>
-              <h4>{{visibleNids}}</h4>
               <br>
 
               <div id="map"></div>
@@ -189,7 +188,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
-<script src="leaflet/leaflet-src.js"></script>
+<script src="leaflet/leaflet.js"></script>
 <script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
 <script src="leaflet/google/leaflet-google-plugin.js"></script>
 <script src="http://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
@@ -217,17 +216,15 @@
 
 <script>
   function animateScroll(e) {
-    if (location.pathname.replace(/^\//,'') == e.pathname.replace(/^\//,'') && location.hostname == e.hostname) {
-
-      var target = $(e.hash);
+      //e.preventDefault();
+      var target = $(e);
       target = target.length ? target : $('[name=' + e.hash.slice(1) +']');
       if (target.length) {
-        $('html,body').animate({
+        $('body').animate({
           scrollTop: target.offset().top
-        }, 500);
+        }, 700);
         return false;
       }
-    }
   };
 </script>
 </body>
