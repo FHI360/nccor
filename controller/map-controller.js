@@ -22,6 +22,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
         $scope.searchString = '';
         $scope.message = '';
         $scope.loaded = false;
+        $scope.tableFilter = "";
 
         TrNgGrid.defaultPagerMinifiedPageCountThreshold = 5;
 
@@ -95,7 +96,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
             var amount = _.reduce(cluster, function(memo, num) {  
                 return parseInt(memo) + parseInt(num.budget); 
             }, 0);
-            var popupMsg = '<h5>' + cluster.length + ' projects</h5>' + '<div>Budget amount: <strong>$' + $filter('number')(amount, 0) + '</strong></div>';
+            var popupMsg = '<h5>' + cluster.length + ' projects</h5>' + '<div>Combined budget amount: <strong>$' + $filter('number')(amount, 0) + '</strong></div><div><a href="#table" class="scroll-link" onclick="animateScroll(this);">View details below</a></div>';
             return popupMsg;
         }
 

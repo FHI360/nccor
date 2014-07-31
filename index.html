@@ -136,7 +136,13 @@
               <div id="map"></div>
               <br>
 
-              <table tr-ng-grid="" items="filteredData" page-items="10" selection-mode="0">
+              <div class="row">
+                <a id="table"></a>
+              </div>
+
+              <input type="text" ng-model="tableFilter">
+
+              <table tr-ng-grid="" items="filteredData" page-items="10" selection-mode="0" enable-filtering="false" filter-by="tableFilter">
                 <thead>
                   <tr>
                     <th field-name="title" display-name="Title" enable-filtering="false" cell-width="30em" display-align="left">
@@ -153,6 +159,7 @@
                   </tr>
                 </thead>
               </table>
+              <p>{{tableCurrentPage}}</p>
               
             </div>
             
@@ -209,5 +216,20 @@
 
 </script>
 
+<script>
+  function animateScroll(e) {
+    if (location.pathname.replace(/^\//,'') == e.pathname.replace(/^\//,'') && location.hostname == e.hostname) {
+
+      var target = $(e.hash);
+      target = target.length ? target : $('[name=' + e.hash.slice(1) +']');
+      if (target.length) {
+        $('html,body').animate({
+          scrollTop: target.offset().top
+        }, 500);
+        return false;
+      }
+    }
+  };
+</script>
 </body>
 </html>
