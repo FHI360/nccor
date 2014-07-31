@@ -73,6 +73,12 @@
 	background-color: #E0ECF8;
 }
 
+.scroll-link-container {
+	margin-top: 10px;
+	color: #777;
+	font-weight: bold;
+}
+
 /* fixes for nccor.org elements broken by bootstrap */
 input.q {
 	line-height: normal;

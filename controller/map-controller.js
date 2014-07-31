@@ -4,24 +4,20 @@
 angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGrid'])
     .controller('NccorCtrl', ['$scope', '$rootScope', '$http', '$filter', function($scope, $rootScope, $http, $filter){
         
-        $scope.center = {
-                lat: 24.0391667,
-                lng: 121.525,
-                zoom: 6
-            };
-
+        // $scope.agency = '';
+        // $scope.agencies = [];
         $scope.data = [];
         $scope.filteredData = [];
         $scope.years = [];
-        // $scope.agency = '';
-        // $scope.agencies = [];
         $scope.topics = [];
         $scope.funders = [];
         $scope.states = [];
+        $scope.visibleNids = [];
         $scope.amountRange = $scope.dataAmountRange = [100000, 1000000];
         $scope.searchString = '';
         $scope.message = '';
         $scope.loaded = false;
+        $scope.reset = false;
         $scope.tableFilter = "";
 
         TrNgGrid.defaultPagerMinifiedPageCountThreshold = 5;
@@ -38,7 +34,8 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
             showCoverageOnHover: false, 
             maxClusterRadius: 20, 
             singleMarkerMode: true,
-            zoomToBoundsOnClick: false
+            zoomToBoundsOnClick: false,
+            spiderfyOnMaxZoom: false
             // iconCreateFunction: function (cluster) {
             //     var markers = cluster.getAllChildMarkers();
             //     var n = 0;
@@ -75,6 +72,11 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
         };
 
         $scope.resetFilters = function() {
+            $scope.visibleNids = [];
+            $scope.reset = true;
+            $scope.map.setView([36, -96], 4, {reset:true});
+            $scope.reset = false;
+
             $scope.searchString = '';
             $scope.getProjects();
         }
@@ -86,17 +88,52 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
 
         function initMap() {
             if($scope.map === undefined) {
-                $scope.map = L.map('map', {minZoom: 4}).setView([39.186, -96.583], 4);
+                $scope.map = L.map('map', {minZoom: 4, maxZoom: 16}).setView([36, -96], 4);
                 var googleLayer = new L.Google('ROADMAP');
                 $scope.map.addLayer(googleLayer);
             }
+
+            $scope.map.on('moveend', function() {
+                if($scope.reset) {
+                    return 0;
+                }
+
+                $scope.visibleNids = [];
+                $scope.processData();
+                // Construct an empty list to fill with onscreen markers.
+                var inBounds = [],
+                // Get the map bounds - the top-left and bottom-right locations.
+                    bounds = $scope.map.getBounds();
+
+                // For each marker, consider whether it is currently visible by comparing
+                // with the current map bounds.
+                projectsGroup.eachLayer(function(marker) {
+                    if (bounds.contains(marker.getLatLng())) {
+                        inBounds.push(marker.nid);
+                    }
+                });
+
+                // Display a list of markers.
+                $scope.visibleNids = inBounds;
+                $scope.processData();
+                $scope.$apply();
+            });
         }
 
-        function processCluster(cluster) {
+        function processCluster(a) {
+            var cluster = a.layer.getAllChildMarkers();
+            var bounds = a.layer.getBounds().pad(0.1);
             var amount = _.reduce(cluster, function(memo, num) {  
                 return parseInt(memo) + parseInt(num.budget); 
             }, 0);
-            var popupMsg = '<h5>' + cluster.length + ' projects</h5>' + '<div>Combined budget amount: <strong>$' + $filter('number')(amount, 0) + '</strong></div><div><a href="#table" class="scroll-link" onclick="animateScroll(this);">View details below</a></div>';
+            var nids = _.map(cluster, function(el) { return el.nid; } );
+            var popupMsg = '<h5>' + cluster.length + ' projects</h5>' + '<div>Combined budget amount: <strong>$' + $filter('number')(amount, 0) + '</strong></div>';
+            if($scope.map.getZoom() == $scope.map.getMaxZoom()) {
+                popupMsg += '<div class="scroll-link-container"><a href="#table" class="scroll-link" onclick="animateScroll(this);">View details below</a></div>';
+            }
+            else {
+                popupMsg += '<div class="scroll-link-container">Doubleclick on marker to zoom closer</div>';   
+            }
             return popupMsg;
         }
 
@@ -106,14 +143,11 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
             projectsGroup.addTo($scope.map);
             projectsGroup
                 .on('clusterclick', function (a) {
-                    var children = a.layer.getAllChildMarkers();
                     //console.log(children);
-                    popup.setLatLng(a.latlng)
-                        .setContent(processCluster(children));
+                    popup.setLatLng(a.latlng).setContent(processCluster(a));
                     $scope.map.openPopup(popup);
                 })
                 .on('clusterblur', function(a) {
-                    console.log(a);
                     $scope.map.closePopup(popup);
                 })
                 .on('clusterdblclick', function(a){
@@ -130,9 +164,18 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
                 if((projects[key].latitude !== undefined) && (projects[key].longitude !== undefined)) {
                     
                     var popupMsg = '<h5>' + projects[key].title + '</h5>'
-                    + '<div>Budget amount: <strong>$' + $filter('number')(projects[key].amount, 0) + '</strong></div>';
-                    var marker = L.marker([projects[key].latitude, projects[key].longitude]).bindPopup(popupMsg, {offset: new L.Point(0,-10)}).on('click', function(evt) {evt.target.openPopup(); }).on('blur', function(evt) {evt.target.closePopup(); });
+                    + '<div>Budget amount: <strong>$' + $filter('number')(projects[key].amount, 0) + '</strong></div><div class="scroll-link-container"><a href="#table" class="scroll-link" onclick="animateScroll(this);">View details below</a></div>';
+                    var marker = L.marker([projects[key].latitude, projects[key].longitude])
+                        .bindPopup(popupMsg, {offset: new L.Point(0,-10)})
+                        .on('click', function(evt) {
+                            if($scope.map.getZoom() != $scope.map.getMaxZoom()) {
+                                $scope.map.setView(evt.latlng, $scope.map.getMaxZoom(), {reset:false});
+                            }                            
+                        })
+                        //.on('click', function(evt) {evt.target.openPopup(); })
+                        .on('blur', function(evt) {evt.target.closePopup(); });
                     marker.budget = projects[key].amount;
+                    marker.nid = projects[key].nid;
                     marker.addTo(projectsGroup);
                 }
             }
@@ -173,11 +216,22 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
                     //var states = _.map($scope.state, function(el) {return el.id;});
                     return el.amount >= $scope.amountRange[0] && el.amount <= $scope.amountRange[1];
                 })
+                .filter(function(el) {
+                    if($scope.visibleNids.length === 0) return true;
+                    return _.intersection($scope.visibleNids, Array(el.nid)).length > 0;
+                })
                 .value();
 
                 placeMarkers();
                 //console.log($scope.filteredData);
                 //tableDirective.navigateToPage(1);
+        };
+
+        $scope.filterVisible = function(markers) {
+            return _.filter($scope.filteredData, function(el) {
+                    if(markers.length === 0) return false;
+                    return _.intersection(markers, Array(el.nid)).length > 0;
+                });
         };
 
         function renderFilters(data) {
