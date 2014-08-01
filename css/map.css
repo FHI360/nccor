@@ -12,7 +12,7 @@
 }
 
 .content-full-width {
-	width: 914px;
+	max-width: 914px;
 	padding: 0 40px;
 	overflow: hidden;
 }
@@ -25,6 +25,10 @@
 
 .dropdown-menu {
 	z-index: 1500;
+}
+
+.filter-container, .reset-container, .search-container {
+	margin-top: 10px;
 }
 
 .loading-map {
