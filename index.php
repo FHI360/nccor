@@ -224,7 +224,7 @@
       var target = $(e);
       target = target.length ? target : $('[name=' + e.hash.slice(1) +']');
       if (target.length) {
-        $('body').animate({
+        $('html,body').animate({
           scrollTop: target.offset().top
         }, 700);
         return false;
