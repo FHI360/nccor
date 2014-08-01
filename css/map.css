@@ -39,6 +39,18 @@
 	cursor: pointer;
 }
 
+.dropdown-multiselect {
+	width: 100%;
+}
+
+.dropdown-multiselect button {
+	width: 100%;
+}
+
+.reset-container, .search-container {
+	margin-top: 1em;
+}
+
 .content-full-width h1 {
 	font-family: "alternate-gothic-no-2-d",sans-serif;
 	text-transform: uppercase;
