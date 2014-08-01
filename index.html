@@ -61,7 +61,7 @@
 
   </div><!--end banner-->
   <div id="content">
-      <div id="data-ng-app" data-ng-app="nccor">
+      <div id="ng-app" ng-app="nccor">
   
         <div class="content-full-width bootstrap" data-ng-controller="NccorCtrl" data-ng-init="init()">
             
@@ -152,20 +152,16 @@
 
               <div class="row">&nbsp;</div>
 
-              <table tr-ng-grid="" items="filteredData" page-items="10" selection-mode="0" enable-filtering="false">
+              <table data-tr-ng-grid="" items="filteredData" data-page-items="10" data-selection-mode="0" data-enable-filtering="false">
                 <thead>
                   <tr>
-                    <th field-name="title" display-name="Title" enable-filtering="false" cell-width="30em" display-align="left">
-                    </th><th field-name="year" display-name="Year" enable-filtering="false" cell-width="7em" display-align="left">
-                    </th><th field-name="funder" display-name="Funder" enable-filtering="false" cell-width="7em" display-align="left">
-                    </th><th field-name="agency" display-name="Agency" enable-filtering="false" cell-width="7em" display-align="left">
-                    </th>
-                    </th><th field-name="institution" display-name="Institution" enable-filtering="false" cell-width="15em" display-align="left">
-                    </th>
-                    <th field-name="location" display-name="Location" enable-filtering="false" cell-width="10em" display-align="left">
-                    </th>
-                    </th><th field-name="investigator" display-name="Investigator" enable-filtering="false" cell-width="10em" display-align="left">
-                    </th>
+                    <th field-name="title" display-name="Title" enable-filtering="false" cell-width="30em" display-align="left"></th>
+                    <th field-name="year" display-name="Year" enable-filtering="false" cell-width="7em" display-align="left"></th>
+                    <th field-name="funder" display-name="Funder" enable-filtering="false" cell-width="7em" display-align="left"></th>
+                    <th field-name="agency" display-name="Agency" enable-filtering="false" cell-width="7em" display-align="left"></th>
+                    <th field-name="institution" display-name="Institution" enable-filtering="false" cell-width="15em" display-align="left"></th>
+                    <th field-name="location" display-name="Location" enable-filtering="false" cell-width="10em" display-align="left"></th>
+                    <th field-name="investigator" display-name="Investigator" enable-filtering="false" cell-width="10em" display-align="left"></th>
                   </tr>
                 </thead>
               </table>

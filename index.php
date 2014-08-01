@@ -152,7 +152,7 @@
 
               <div class="row">&nbsp;</div>
 
-              <table tr-ng-grid="" items="filteredData" page-items="10" selection-mode="0" enable-filtering="false">
+              <table data-tr-ng-grid="" items="filteredData" data-page-items="10" data-selection-mode="0" data-enable-filtering="false">
                 <thead>
                   <tr>
                     <th field-name="title" display-name="Title" enable-filtering="false" cell-width="30em" display-align="left">
