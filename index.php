@@ -147,7 +147,7 @@
                 <a id="table"></a>
               </div>
               <div class="row">
-                <div class="col-md-12 text-right"><a href="http://map.nccor.org/export/projects/all/NCCOR_Projects.csv">Export all projects to CSV</a></div>
+                <div class="col-md-12 text-right"><a href="http://map.nccor.org/export/projects/all/NCCOR_Projects.csv"><img src="images/spreadsheet.png" /> Export all projects to CSV</a></div>
               </div>
 
               <div class="row">&nbsp;</div>
