@@ -77,8 +77,31 @@
               <h4 data-ng-if="message.length>0">{{message}} <img src="images/loading.gif"></h4>
 
               <div class="row">
+                <div class="col col-md-3">
+                  <label class="text-center col-xs-12">Year(s)</label>
+                  <div data-ng-dropdown-multiselect="" options="years" selected-model="year" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Year(s)', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllYears}"></div>
+                </div>
+              
+                <div class="col col-md-3">
+                  <label class="text-center col-xs-12">Funder(s)</label>
+                  <div data-ng-dropdown-multiselect="" options="funders" selected-model="funder" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Funder(s)', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllFunders}"></div>
+                </div>
 
                 <div class="col col-md-3">
+                  <label class="text-center col-xs-12">State(s)</label>
+                  <div data-ng-dropdown-multiselect="" options="states" selected-model="state" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select State(s)', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllStates}"></div>
+                </div>
+                
+                <div class="col col-md-3">
+                  <label class="text-center col-xs-12">Topic(s)</label>
+                  <div data-ng-dropdown-multiselect="" options="topics" selected-model="topic" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Topic(s)', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllTopics}"></div>
+                </div>
+              </div>
+
+              <div class="row">&nbsp;</div>
+
+              <div class="row">
+                <div class="col col-md-3 search-container">
                   <form id="keyword-search" data-ng-submit="processSearch(searchString)" class="form-inline" role="form">
                     <div class="form-group">
                       <div class="input-group">
@@ -90,35 +113,19 @@
                   </form>
                 </div>
 
-                <div class="col col-md-2">
-                  <div data-ng-dropdown-multiselect="" options="years" selected-model="year" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Year(s)', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllYears}"></div>
-                </div>
-
-                <div class="col col-md-2">
-                  <div data-ng-dropdown-multiselect="" options="funders" selected-model="funder" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Funder(s)', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllFunders}"></div>
-                </div>
-
-                <div class="col col-md-2">
-                  <div data-ng-dropdown-multiselect="" options="states" selected-model="state" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select State(s)', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllStates}"></div>
-                </div>
-                
-                <div class="col col-md-2">
-                  <div data-ng-dropdown-multiselect="" options="topics" selected-model="topic" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Topic(s)', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllTopics}"></div>
-                </div>
-
-              </div>
-
-              <div class="row">&nbsp;</div>
-              <div class="row">
-
                 <div class="col-md-6">
-                  <div class="row"><div class="col-md-12">${{amountRange[0] | number}}</div></div>
-                  <div class="row"><div class="col-md-12"><div ui-slider="slider.options" min="{{minRange}}" max="{{maxRange}}" step="50000" ng-model="amountRange"></div></div></div>
-                  <div class="row"><div class="col-md-12 text-right">${{amountRange[1] | number}}</div></div>
+                  <label class="text-center col-xs-12">Amount</label>
+                  <div class="row">
+                    <div class="col-md-12"><div ui-slider="slider.options" min="{{minRange}}" max="{{maxRange}}" step="50000" ng-model="amountRange"></div></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">${{amountRange[0] | number}}</div>
+                    <div class="col-md-6 text-right">${{amountRange[1] | number}}</div>
+                  </div>
                 </div>
 
-                <div class="col col-md-3">
-                  <button data-ng-click="resetFilters()" class="btn btn-primary reset">Reset all filters</button>
+                <div class="col col-md-3 reset-container">
+                  <button data-ng-click="resetFilters()" class="btn btn-primary col-md-12 reset">Reset all filters</button>
                 </div>
               </div>
               <div class="row">&nbsp;</div>
