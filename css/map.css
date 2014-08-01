@@ -23,6 +23,10 @@
 	font-size: 1.3em;
 }
 
+.dropdown-menu {
+	z-index: 1500;
+}
+
 .loading-map {
 	text-align: center;
 }
