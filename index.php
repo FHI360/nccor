@@ -139,6 +139,11 @@
               <div class="row">
                 <a id="table"></a>
               </div>
+              <div class="row">
+                <div class="col-md-12 text-right"><a href="http://map.nccor.org/export/projects/all/NCCOR_Projects">Export all projects to CSV</a></div>
+              </div>
+
+              <div class="row">&nbsp;</div>
 
               <table tr-ng-grid="" items="filteredData" page-items="10" selection-mode="0" enable-filtering="false">
                 <thead>
@@ -157,7 +162,6 @@
                   </tr>
                 </thead>
               </table>
-              <p>{{tableCurrentPage}}</p>
               
             </div>
             
