@@ -186,7 +186,9 @@
 
 </div><!--end container-->
 
-
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
 <!--[if lt IE 7]>
 <script type="text/javascript" src="../../js/jquery/jquery.js"></script>
 <script type="text/javascript" src="../../js/jquery/jquery.dropdown.js"></script>
