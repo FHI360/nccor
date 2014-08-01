@@ -35,13 +35,21 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
             maxClusterRadius: 20, 
             singleMarkerMode: true,
             zoomToBoundsOnClick: false,
-            spiderfyOnMaxZoom: false
+            spiderfyOnMaxZoom: false,
             // iconCreateFunction: function (cluster) {
-            //     var markers = cluster.getAllChildMarkers();
-            //     var n = 0;
-            //     n = markers.length++;
-            //     return L.divIcon({ html: '<div class="cluster">' + n + '</div>', className: 'mycluster', iconSize: L.point(40, 40) });
-            // },
+            //     var childCount = cluster.getChildCount();
+
+            //     var c = ' marker-cluster-';
+            //     if (childCount < 10) {
+            //         c += 'small';
+            //     } else if (childCount < 100) {
+            //         c += 'medium';
+            //     } else {
+            //         c += 'large';
+            //     }
+
+            //     return new L.DivIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(40*childCount*0.1, 40*childCount*0.1) });
+            // }
         });
 
         $scope.uncheckAllTopics = function() {
@@ -132,7 +140,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
                 popupMsg += '<div class="scroll-link-container"><a class="scroll-link" onclick="animateScroll(\'#table\');">View details below</a></div>';
             }
             else {
-                popupMsg += '<div class="scroll-link-container">Doubleclick on marker to zoom closer</div>';   
+                popupMsg += '<div class="scroll-link-container">Click on marker to zoom closer</div>';   
             }
             return popupMsg;
         }
@@ -142,15 +150,20 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
             var popup = L.popup({offset: new L.Point(0,-10)});
             projectsGroup.addTo($scope.map);
             projectsGroup
-                .on('clusterclick', function (a) {
+                .on('clustermouseover', function (a) {
                     //console.log(children);
                     popup.setLatLng(a.latlng).setContent(processCluster(a));
                     $scope.map.openPopup(popup);
                 })
+                .on('clustermouseout', function (a) {
+                    if($scope.map.getZoom() != $scope.map.getMaxZoom()) {
+                        $scope.map.closePopup(popup);
+                    }
+                })
                 .on('clusterblur', function(a) {
                     $scope.map.closePopup(popup);
                 })
-                .on('clusterdblclick', function(a){
+                .on('clusterclick', function(a){
                     $scope.map.closePopup(popup);
                     //Disabling this to fit all markers in the cluster on the map.
                     //a.layer.zoomToBounds(); 
@@ -164,13 +177,28 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
                 if((projects[key].latitude !== undefined) && (projects[key].longitude !== undefined)) {
                     
                     var popupMsg = '<h5>' + projects[key].title + '</h5>'
-                    + '<div>Budget amount: <strong>$' + $filter('number')(projects[key].amount, 0) + '</strong></div><div class="scroll-link-container"><a class="scroll-link" onclick="animateScroll(\'#table\');">View details below</a></div>';
+                    + '<div>Budget amount: <strong>$' + $filter('number')(projects[key].amount, 0) + '</strong></div>';
+                    if($scope.map.getZoom() == $scope.map.getMaxZoom()) {
+                        popupMsg += '<div class="scroll-link-container"><a class="scroll-link" onclick="animateScroll(\'#table\');">View details below</a></div>';
+                    }
+                    else {
+                        popupMsg += '<div class="scroll-link-container">Click on marker to zoom closer</div>';
+                    }
+
                     var marker = L.marker([projects[key].latitude, projects[key].longitude])
                         .bindPopup(popupMsg, {offset: new L.Point(0,-10)})
                         .on('click', function(evt) {
                             if($scope.map.getZoom() != $scope.map.getMaxZoom()) {
                                 $scope.map.setView(evt.latlng, $scope.map.getMaxZoom(), {reset:false});
-                            }                            
+                            }                          
+                        })
+                        .on('mouseover', function(evt) {
+                            evt.target.openPopup();                            
+                        })
+                        .on('mouseout', function(evt) {
+                            if($scope.map.getZoom() != $scope.map.getMaxZoom()) {
+                                evt.target.closePopup();
+                            }
                         })
                         //.on('click', function(evt) {evt.target.openPopup(); })
                         .on('blur', function(evt) {evt.target.closePopup(); });
@@ -295,7 +323,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
                 data[key].institution = htmlDecode(data[key].institution);
             }
 
-            console.log(data);
+            //console.log(data);
             $scope.filteredData = $scope.data = data;
             renderFilters($scope.filteredData);
 

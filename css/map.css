@@ -83,6 +83,39 @@
 	cursor: pointer;
 }
 
+.marker-cluster-small div {
+	background-color: rgba(59, 133, 17, 0.71);
+}
+
+.marker-cluster span {
+	color: white;
+	font-weight: bold;
+}
+
+.marker-cluster-small {
+	background-color: rgba(153, 187, 122, 0.81);
+}
+
+.marker-cluster-medium div {
+	background-color: rgba(177, 141, 0, 0.8);
+}
+
+.marker-cluster-medium {
+	background-color: rgba(204, 166, 9, 0.6);
+}
+
+.marker-cluster div {
+	width: 34px;
+	height: 34px;
+	margin-left: 3px;
+	margin-top: 3px;
+	border-radius: 17px;
+}
+
+.marker-cluster span {
+	line-height: 34px;
+}
+
 /* fixes for nccor.org elements broken by bootstrap */
 input.q {
 	line-height: normal;
