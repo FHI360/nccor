@@ -269,8 +269,6 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
             $scope.topics  = _.chain(data).map(function(obj){return obj.topics}).flatten().uniq().filter(function(el) {return el!=undefined}).map(function(el){return {id:el, label:el}}).value();
             var amounts = _.chain(data).uniq(function(obj) {return obj.amount}).filter(function(el) {return el.amount!=undefined}).map(function(el) { return el.amount }).value();
             $scope.amountRange = $scope.dataAmountRange = minMaxRange(amounts);
-
-            // $scope.agencies = _.chain(data).uniq(function(obj) {return obj.agency}).map(function(el) { return el.agency }).sortBy(function(el) { return el; }).value();
         }
 
         function minMaxRange(arr) {
@@ -329,6 +327,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
 
             //console.log(data);
             $scope.filteredData = $scope.data = data;
+            _.forEach($scope.filteredData, function(el) {el.amount = parseInt(el.amount)});
             renderFilters($scope.filteredData);
 
             $scope.funder = [];
@@ -337,6 +336,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
             $scope.topic = [];
             $scope.minRange = $scope.amountRange[0];
             $scope.maxRange = $scope.amountRange[1];
+
             // $scope.agency = "";
             
             initMap();
