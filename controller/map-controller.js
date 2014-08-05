@@ -13,7 +13,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
         $scope.funders = [];
         $scope.states = [];
         $scope.visibleNids = [];
-        $scope.amountRange = $scope.dataAmountRange = [100000, 1000000];
+        //$scope.amountRange = $scope.dataAmountRange = [1000000, 1000000];
         $scope.searchString = '';
         $scope.message = '';
         $scope.loaded = false;
@@ -268,9 +268,13 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
             $scope.years   = _.chain(data).uniq(function(obj) {return obj.year}).filter(function(el) {return el.year!=undefined}).sortBy(function(el) { return el.year; }).map(function(el) { return {id:el.year, label:el.year} }).value();
             $scope.topics  = _.chain(data).map(function(obj){return obj.topics}).flatten().uniq().filter(function(el) {return el!=undefined}).map(function(el){return {id:el, label:el}}).value();
             var amounts = _.chain(data).uniq(function(obj) {return obj.amount}).filter(function(el) {return el.amount!=undefined}).map(function(el) { return el.amount }).value();
-            $scope.amountRange = $scope.dataAmountRange = [parseInt(_.min(amounts)), parseInt(_.max(amounts))];
+            $scope.amountRange = $scope.dataAmountRange = minMaxRange(amounts);
 
             // $scope.agencies = _.chain(data).uniq(function(obj) {return obj.agency}).map(function(el) { return el.agency }).sortBy(function(el) { return el; }).value();
+        }
+
+        function minMaxRange(arr) {
+            return [parseInt(_.min(arr, function(el) {return parseInt(el)})), parseInt(_.max(arr, function(el) {return parseInt(el)}))]
         }
 
         $scope.getProjects = function(search) {
@@ -331,8 +335,8 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
             $scope.state = [];
             $scope.year = [];
             $scope.topic = [];
-            $scope.minRange = 100000;
-            $scope.maxRange = 10000000;
+            $scope.minRange = $scope.amountRange[0];
+            $scope.maxRange = $scope.amountRange[1];
             // $scope.agency = "";
             
             initMap();

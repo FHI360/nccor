@@ -72,7 +72,9 @@
             <h1>NCCOR Interactive Funding Map</h1>
             <h3 data-ng-show="!loaded" class="loading-map"><img src="images/loading-map.gif"><br>LOADING MAP...</h3>
             <div id="map-container">
-              <p>[PLACEHOLDER] The Project Map is a searchable database of projects.</p>
+              <p>The National Collaborative on Childhood Obesity Research (NCCOR) Interactive Funding Map provides a snapshot of recent and current childhood obesity research projects within the United States and funded by NCCOR partners: CDC, NIH, RWJF, and USDA. Specifically, the map features details for childhood obesity research projects funded between 2008 and 2014 at an amount of at least $1M. The map includes a variety of features to easily search and sort to learn about specific awards. To start, simply adjust the filters below; click within the table; or sort all projects using the table navigation. You can also search by keyword.</p>
+ 
+              <p>Additional information (e.g., project number, proposal ID, GIS coordinates) is available within the exportable file.</p>
 
               <h4 data-ng-if="message.length>0">{{message}} <img src="images/loading.gif"></h4>
 
@@ -80,24 +82,24 @@
                 <div class="col col-md-6">
                   <div class="col col-sm-6 filter-container">
                     <label class="text-center col-xs-12">Year(s)</label>
-                    <div data-ng-dropdown-multiselect="" options="years" selected-model="year" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Year(s)', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllYears}"></div>
+                    <div data-ng-dropdown-multiselect="" options="years" selected-model="year" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Show all', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllYears}"></div>
                   </div>
                 
                   <div class="col col-sm-6 filter-container">
                     <label class="text-center col-xs-12">Funder(s)</label>
-                    <div data-ng-dropdown-multiselect="" options="funders" selected-model="funder" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Funder(s)', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllFunders}"></div>
+                    <div data-ng-dropdown-multiselect="" options="funders" selected-model="funder" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Show all', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllFunders}"></div>
                   </div>
                 </div>
 
                 <div class="col col-md-6">
                   <div class="col col-sm-6 filter-container">
                     <label class="text-center col-xs-12">State(s)</label>
-                    <div data-ng-dropdown-multiselect="" options="states" selected-model="state" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select State(s)', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllStates}"></div>
+                    <div data-ng-dropdown-multiselect="" options="states" selected-model="state" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Show all', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllStates}"></div>
                   </div>
                   
                   <div class="col col-sm-6 filter-container">
                     <label class="text-center col-xs-12">Topic(s)</label>
-                    <div data-ng-dropdown-multiselect="" options="topics" selected-model="topic" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Select Topic(s)', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllTopics}"></div>
+                    <div data-ng-dropdown-multiselect="" options="topics" selected-model="topic" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Show all', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllTopics}"></div>
                   </div>
                 </div>
               </div>
@@ -137,10 +139,13 @@
               <div class="row">&nbsp;</div>
 
               <div class="row">
-                <ul><li data-ng-repeat="t in topic">{{t.id}}</li></ul>
-                <ul><li data-ng-repeat="y in year">{{y.id}}</li></ul>
-                <ul><li data-ng-repeat="f in funder">{{f.id}}</li></ul>
-                <ul><li data-ng-repeat="s in state">{{s.id}}</li></ul>
+                <label class="text-left col-xs-12" data-ng-if="((year.length>0)||(funder.length>0)||(state.length>0)||(topic.length>0))">Active Filters</label>
+                <div class="col-sm-12">
+                  <ul class="active-filters active-filters-years"><li data-ng-repeat="y in year"><small>{{y.id}}</small></li></ul>                
+                  <ul class="active-filters active-filters-funders"><li data-ng-repeat="f in funder"><small>{{f.id}}</small></li></ul>
+                  <ul class="active-filters active-filters-states"><li data-ng-repeat="s in state"><small>{{s.id}}</small></li></ul>
+                  <ul class="active-filters active-filters-topics"><li data-ng-repeat="t in topic"><small>{{t.id}}</small></li></ul>
+                </div>
               </div>
           
               <h4>Showing {{filteredData.length}} projects</h4>
