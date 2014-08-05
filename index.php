@@ -76,8 +76,6 @@
  
               <p>Additional information (e.g., project number, proposal ID, GIS coordinates) is available within the exportable file.</p>
 
-              <h4 data-ng-if="message.length>0">{{message}} <img src="images/loading.gif"></h4>
-
               <div class="row">
                 <div class="col col-md-6">
                   <div class="col col-sm-6 filter-container">
@@ -136,6 +134,7 @@
                   </div>
                 </div>
               </div>
+              <div class="row"><h5 data-ng-if="message.length>0" class="col col-sm-12">{{message}} <img src="images/loading.gif"></h5></div>
               <div class="row">&nbsp;</div>
 
               <div class="row">
