@@ -72,7 +72,7 @@
             <h1>NCCOR Interactive Funding Map</h1>
             <h3 data-ng-show="!loaded" class="loading-map"><img src="images/loading-map.gif"><br>LOADING MAP...</h3>
             <div id="map-container">
-              <p>The National Collaborative on Childhood Obesity Research (NCCOR) Interactive Funding Map provides a snapshot of recent and current childhood obesity research projects within the United States and funded by NCCOR partners: CDC, NIH, RWJF, and USDA. Specifically, the map features details for childhood obesity research projects funded between 2008 and 2014 at an amount of at least $1M. The map includes a variety of features to easily search and sort to learn about specific awards. To start, simply adjust the filters below; click within the table; or sort all projects using the table navigation. You can also search by keyword.</p>
+              <p>The National Collaborative on Childhood Obesity Research (NCCOR) Interactive Funding Map provides a snapshot of recent and current childhood obesity research projects within the United States and funded by NCCOR partners: CDC, NIH, RWJF, and USDA. Specifically, the map features details for childhood obesity research projects funded between 2008 and 2014 at an amount of at least $1 million. The map includes a variety of features to easily search and sort to learn about specific awards. To start, simply adjust the filters below; click within the table; or sort all projects using the table navigation. You can also search by keyword.</p>
  
               <p>Additional information (e.g., project number, proposal ID, GIS coordinates) is available within the exportable file.</p>
 
@@ -172,6 +172,7 @@
                     <th field-name="institution" display-name="Institution" enable-filtering="false" cell-width="15em" display-align="left"></th>
                     <th field-name="location" display-name="Location" enable-filtering="false" cell-width="10em" display-align="left"></th>
                     <th field-name="investigator" display-name="Investigator" enable-filtering="false" cell-width="10em" display-align="left"></th>
+                    <th field-name="amount" display-name="Budget" enable-filtering="false" cell-width="7em" display-align="right"></th>
                   </tr>
                 </thead>
               </table>
