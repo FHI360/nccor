@@ -124,8 +124,8 @@
                       <div class="col-xs-12"><div ui-slider="slider.options" min="{{minRange}}" max="{{maxRange}}" step="50000" ng-model="amountRange"></div></div>
                     </div>
                     <div class="row">
-                      <div class="col-xs-6">${{amountRange[0] | number}}</div>
-                      <div class="col-xs-6 text-right">${{amountRange[1] | number}}</div>
+                      <div class="col-xs-6">{{amountRange[0] | nfcurrency}}</div>
+                      <div class="col-xs-6 text-right">{{amountRange[1] | nfcurrency}}</div>
                     </div>
                   </div>
 
@@ -172,7 +172,7 @@
                     <th field-name="institution" display-name="Institution" enable-filtering="false" cell-width="15em" display-align="left"></th>
                     <th field-name="location" display-name="Location" enable-filtering="false" cell-width="10em" display-align="left"></th>
                     <th field-name="investigator" display-name="Investigator" enable-filtering="false" cell-width="10em" display-align="left"></th>
-                    <th field-name="amount" display-name="Budget" enable-filtering="false" cell-width="7em" display-align="right"></th>
+                    <th field-name="amount" display-name="Budget" enable-filtering="false" cell-width="7em" display-align="right" display-format="nfcurrency"></th>
                   </tr>
                 </thead>
               </table>
