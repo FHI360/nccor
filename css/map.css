@@ -65,6 +65,11 @@
 	border-color: #1C7B94;
 }
 
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+background-color: #1C7B94;
+border-color: #1A6376;
+}
+
 .pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
 	background-color: #178faf;
 	border-color: #1C7B94;
