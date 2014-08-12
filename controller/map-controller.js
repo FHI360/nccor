@@ -26,6 +26,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
         $scope.loaded = false;
         $scope.reset = false;
         $scope.tableFilter = "";
+        $scope.zoomedin = false;
 
         TrNgGrid.defaultPagerMinifiedPageCountThreshold = 5;
 
@@ -108,31 +109,44 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
                 $scope.map.addLayer(googleLayer);
             }
 
-            $scope.map.on('moveend', function() {
-                if($scope.reset) {
-                    return 0;
-                }
-
-                $scope.visibleNids = [];
-                $scope.processData();
-                // Construct an empty list to fill with onscreen markers.
-                var inBounds = [],
-                // Get the map bounds - the top-left and bottom-right locations.
-                    bounds = $scope.map.getBounds();
-
-                // For each marker, consider whether it is currently visible by comparing
-                // with the current map bounds.
-                projectsGroup.eachLayer(function(marker) {
-                    if (bounds.contains(marker.getLatLng())) {
-                        inBounds.push(marker.nid);
+            $scope.map
+                .on('moveend', function() {
+                    if($scope.reset) {
+                        return 0;
                     }
-                });
 
-                // Display a list of markers.
-                $scope.visibleNids = inBounds;
-                $scope.processData();
-                $scope.$apply();
-            });
+                    $scope.visibleNids = [];
+                    $scope.processData();
+                    // Construct an empty list to fill with onscreen markers.
+                    var inBounds = [],
+                    // Get the map bounds - the top-left and bottom-right locations.
+                        bounds = $scope.map.getBounds();
+
+                    // For each marker, consider whether it is currently visible by comparing
+                    // with the current map bounds.
+                    projectsGroup.eachLayer(function(marker) {
+                        if (bounds.contains(marker.getLatLng())) {
+                            inBounds.push(marker.nid);
+                        }
+                    });
+
+                    if($scope.map.getZoom() > $scope.map.getMinZoom()) {
+                        $scope.zoomedin = true;
+                    }
+                    else {
+                        $scope.zoomedin = false;
+                    }
+
+                    // Display a list of markers.
+                    $scope.visibleNids = inBounds;
+                    $scope.processData();
+                    $scope.$apply();
+                });
+                // .on('zoomend', function() {
+                //     if($scope.map.getZoom() != $scope.map.getMinZoom()) {
+                //         $scope.zoomedin = true;
+                //     }
+                // });
         }
 
         function processCluster(a) {

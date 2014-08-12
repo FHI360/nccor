@@ -60,6 +60,28 @@
 	margin-left: 6px;
 }
 
+.btn-primary {
+	background-color: #178faf;
+	border-color: #1C7B94;
+}
+
+.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
+	background-color: #178faf;
+	border-color: #1C7B94;
+}
+
+.pagination>li>a:hover, .pagination>li>span:hover, .pagination>li>a:focus, .pagination>li>span:focus {
+	color: #178faf;
+}
+
+.pagination>li>a, .pagination>li>span {
+	color: #178faf;
+}
+
+.ui-widget-header {
+	background: #178faf;
+}
+
 .dropdown-menu li {
 	cursor: pointer;
 }
