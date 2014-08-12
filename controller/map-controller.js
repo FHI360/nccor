@@ -92,6 +92,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
             $scope.reset = true;
             $scope.map.setView([36, -96], 4, {reset:true});
             $scope.reset = false;
+            $scope.zoomedin = false;
 
             $scope.searchString = '';
             $scope.getProjects();
