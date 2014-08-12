@@ -161,7 +161,7 @@
                 <div class="col-md-6 text-right"><a href="http://map.nccor.org/export/projects/all/NCCOR_Projects.csv"><img src="images/spreadsheet.png" /> Export all projects to CSV</a></div>
               </div>
               <div class="row">
-                <div class="col-md-12 text-right"><p>Data last updated May 2014</p></div>
+                <div class="col-md-12 text-right"><p class="small">Data last updated May 2014</p></div>
               </div>
 
               <div class="row">&nbsp;</div>
