@@ -91,7 +91,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
 
         function initMap() {
             if($scope.map === undefined) {
-                $scope.map = L.map('map', {minZoom: 4, maxZoom: 16, scrollWheelZoom: false}).setView([38, -98], 4);
+                $scope.map = L.map('map', {minZoom: 3, maxZoom: 16, scrollWheelZoom: false}).setView([38, -98], 4);
                 var googleLayer = new L.Google('ROADMAP');
                 $scope.map.addLayer(googleLayer);
             }
@@ -219,13 +219,6 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
 
         $scope.processData = function() {
             $scope.filteredData = _.chain($scope.data)
-                
-                // .filter(function(el) {
-                //     if($scope.agency=='') return true;
-                //     var agencies = [];
-                //     agencies=Array($scope.agency);
-                //     return _.intersection(agencies, Array(el.agency)).length > 0;
-                // })
                 .filter(function(el) {
                     if($scope.funder.length === 0) return true;
                     var funders = _.map($scope.funder, function(el) {return el.id;});
@@ -257,6 +250,22 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
                     return _.intersection($scope.visibleNids, Array(el.nid)).length > 0;
                 })
                 .value();
+
+                console.log($scope.state);
+                
+                var states = _.map($scope.state, function(el) {return el.id;});
+                if(_.indexOf(states, "Hawaii") >= 0) {
+                    $scope.reset = true;
+                    $scope.map.setView([38, -98], 3, {reset:true});
+                    $scope.reset = false;
+                    
+                }
+                else {
+                    $scope.reset = true;
+                    $scope.map.setView([38, -98], 4, {reset:true});
+                    $scope.reset = false;
+                }
+            
 
                 placeMarkers();
                 //console.log($scope.filteredData);
