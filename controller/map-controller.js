@@ -43,21 +43,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
             maxClusterRadius: 20, 
             singleMarkerMode: true,
             zoomToBoundsOnClick: false,
-            spiderfyOnMaxZoom: false,
-            // iconCreateFunction: function (cluster) {
-            //     var childCount = cluster.getChildCount();
-
-            //     var c = ' marker-cluster-';
-            //     if (childCount < 10) {
-            //         c += 'small';
-            //     } else if (childCount < 100) {
-            //         c += 'medium';
-            //     } else {
-            //         c += 'large';
-            //     }
-
-            //     return new L.DivIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(40*childCount*0.1, 40*childCount*0.1) });
-            // }
+            spiderfyOnMaxZoom: false
         });
 
         $scope.uncheckAllTopics = function() {
@@ -90,7 +76,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
         $scope.resetFilters = function() {
             $scope.visibleNids = [];
             $scope.reset = true;
-            $scope.map.setView([36, -96], 4, {reset:true});
+            $scope.map.setView([38, -98], 4, {reset:true});
             $scope.reset = false;
             $scope.zoomedin = false;
 
@@ -105,7 +91,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
 
         function initMap() {
             if($scope.map === undefined) {
-                $scope.map = L.map('map', {minZoom: 4, maxZoom: 16}).setView([36, -96], 4);
+                $scope.map = L.map('map', {minZoom: 4, maxZoom: 16, scrollWheelZoom: false}).setView([38, -98], 4);
                 var googleLayer = new L.Google('ROADMAP');
                 $scope.map.addLayer(googleLayer);
             }
