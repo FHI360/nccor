@@ -72,9 +72,21 @@
             <h1>NCCOR Interactive Funding Map</h1>
             <h3 data-ng-show="!loaded" class="loading-map"><img src="images/loading-map.gif"><br>LOADING MAP...</h3>
             <div id="map-container">
-              <p>The National Collaborative on Childhood Obesity Research (NCCOR) Interactive Funding Map provides a snapshot of recent and current childhood obesity research projects within the United States and funded by NCCOR partners: CDC, NIH, RWJF, and USDA. Specifically, the map features details for childhood obesity research projects funded between 2008 and 2014 at an amount of at least $1 million. The map includes a variety of features to easily search and sort to learn about specific awards. To start, simply adjust the filters below; click within the table; or sort all projects using the table navigation. You can also search by keyword.</p>
+              <p>The National Collaborative on Childhood Obesity Research (NCCOR) Interactive Funding Map provides a snapshot of recent and current childhood obesity research projects within the United States. All projects featured in the map:</p>
+              <ul>
+                <li>Are funded by CDC, NIH, RWJF, or USDA</li>
+                <li>Received funding between 2008 and 2014</li>
+                <li>Are or were funded at least $1 million per year </li>
+              </ul>
+              <p>The NCCOR Interactive Funding Map includes a variety of features to learn about specific awards.</p>
+              <ul>
+                <li>To start, simply adjust the filters below (Year(s), Funder(s), State(s), Topic(s), Amount).</li>
+                <li>You can also search by keyword.</li>
+                <li>Additionally, you can navigate within the map (drag, zoom in/out) to focus on specific geographical areas.</li>
+                <li>Project details can be viewed in the map by hovering your cursor over a green project marker. Clicking on a project marker will “zoom” the map to the location of the project(s).</li>
+              </ul>
  
-              <p>Additional information (e.g., project number, proposal ID, GIS coordinates) is available within the exportable file.</p>
+              <p>Details for projects displayed in the map view are listed in the sortable table below the map. Additional information (e.g., project number, proposal ID, GIS coordinates) is available within the exportable file. To export information for all projects, click the link below the map.</p>
 
               <div class="row">
                 <div class="col col-md-6">
@@ -157,14 +169,18 @@
                 <a id="table"></a>
               </div>
               <div class="row">
-                <div class="col-md-6"><span data-ng-show="zoomedin">To zoom out, click the “Reset all filters” button above</span></div>
+                <div class="col-md-6"><span data-ng-show="zoomedin">To zoom out, click the “Reset all filters” button above.</span></div>
                 <div class="col-md-6 text-right"><a href="http://map.nccor.org/export/projects/all/NCCOR_Projects.csv"><img src="images/spreadsheet.png" /> Export all projects to CSV</a></div>
               </div>
               <div class="row">
                 <div class="col-md-12 text-right"><p class="small">Data last updated May 2014</p></div>
               </div>
 
-              <div class="row">&nbsp;</div>
+              <div class="row">
+                <div class="col-md-12 text-justify">
+                  <p>To sort the projects listed in the table, click the column titles in the header row (Title, Year, Funder, Agency, Institution, Location, Investigator, Budget).</p>
+                </div>
+              </div>
 
               <table data-tr-ng-grid="" items="filteredData" data-page-items="10" data-selection-mode="0" data-enable-filtering="false" class="table table-responsive">
                 <thead>
