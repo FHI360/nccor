@@ -92,7 +92,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
 
         function initMap() {
             if($scope.map === undefined) {
-                $scope.map = L.map('map', {minZoom: 3, maxZoom: 16, scrollWheelZoom: false}).setView([38, -98], 4);
+                $scope.map = L.map('map', {minZoom: 3, maxZoom: 18, scrollWheelZoom: false}).setView([38, -98], 4);
                 var googleLayer = new L.Google('ROADMAP');
                 $scope.map.addLayer(googleLayer);
             }
