@@ -92,7 +92,7 @@
                 <div class="col col-md-6">
                   <div class="col col-sm-6 filter-container">
                     <label class="text-center col-xs-12">State(s)</label>
-                    <div data-ng-dropdown-multiselect="" options="states" selected-model="state" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Show all', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllStates}"></div>
+                    <div data-ng-dropdown-multiselect="" options="states" selected-model="state" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Show all', uncheckAll: 'Reset'}" events="{onItemSelect: changeStates, onItemDeselect: changeStates, onDeselectAll: uncheckAllStates}"></div>
                   </div>
                   
                   <div class="col col-sm-6 filter-container">
