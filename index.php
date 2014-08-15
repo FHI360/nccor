@@ -230,14 +230,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
 <script src="leaflet/leaflet.js"></script>
 <script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
-<script src="leaflet/google/leaflet-google-plugin.js"></script>
-<script src="http://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+<script src="leaflet/google/leaflet-google-plugin.min.js"></script>
+<script src="http://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="dropdown-multiselect/angularjs-dropdown-multiselect.min.js"></script>
-<script src="controller/map-controller.js"></script>
+<script src="controller/map-controller.min.js"></script>
 <script src="bootstrap/multiselect.min.js"></script>
 <script src="slider/jquery-ui.min.js"></script>
-<script src="slider/angular-ui-slider.js"></script>
+<script src="slider/angular-ui-slider.min.js"></script>
 <script src="table/trNgGrid.min.js"></script>
 
 <script type="text/javascript">
