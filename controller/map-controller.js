@@ -64,6 +64,7 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
         $scope.uncheckAllStates = function() {
             $scope.state = [];
             $scope.processData();
+            $scope.checkZoom();
         }
 
         $scope.init = function() {
@@ -251,9 +252,13 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
                 })
                 .value();
 
-                console.log($scope.state);
-                
-                var states = _.map($scope.state, function(el) {return el.id;});
+                placeMarkers();
+                //console.log($scope.filteredData);
+                //tableDirective.navigateToPage(1);
+        };
+
+        $scope.checkZoom = function() {
+            var states = _.map($scope.state, function(el) {return el.id;});
                 if(_.indexOf(states, "Hawaii") >= 0) {
                     $scope.reset = true;
                     $scope.map.setView([38, -98], 3, {reset:true});
@@ -265,11 +270,11 @@ angular.module('nccor', ['angularjs-dropdown-multiselect', 'ui.slider', 'trNgGri
                     $scope.map.setView([38, -98], 4, {reset:true});
                     $scope.reset = false;
                 }
-            
+        };
 
-                placeMarkers();
-                //console.log($scope.filteredData);
-                //tableDirective.navigateToPage(1);
+        $scope.changeStates = function() {
+            $scope.checkZoom();
+            $scope.processData();
         };
 
         $scope.filterVisible = function(markers) {
