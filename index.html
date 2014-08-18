@@ -78,7 +78,7 @@
                 <li>Received funding between 2008 and 2014</li>
                 <li>Are or were funded at least $1 million per year </li>
               </ul>
-              <p>&nbsp;</p>
+              <br>
               <p>The NCCOR Interactive Funding Map includes a variety of features to learn about specific awards.</p>
               <ul>
                 <li>To start, simply adjust the filters below (Year(s), Funder(s), State(s), Topic(s), Amount).</li>
@@ -86,7 +86,7 @@
                 <li>Additionally, you can navigate within the map (drag, zoom in/out) to focus on specific geographical areas.</li>
                 <li>Project details can be viewed in the map by hovering your cursor over a green project marker. Clicking on a project marker will “zoom” the map to the location of the project(s).</li>
               </ul>
-              <p>&nbsp;</p>
+              <br>
               <p>Details for projects displayed in the map view are listed in the sortable table below the map. Additional information (e.g., project number, proposal ID, GIS coordinates) is available within the exportable file. To export information for all projects, click the link below the map.</p>
 
               <div class="row">
