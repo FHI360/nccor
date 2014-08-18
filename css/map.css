@@ -226,7 +226,7 @@ a.hide-text:hover {
 	letter-spacing: -0.02em;
 }
 
-.content-full-width p, .content-full-width li {
+.content-full-width p, .text-ul li {
 	font-size: 1.05em;
 	line-height: 1.535em;
 	margin: 0 0 15px 0;
