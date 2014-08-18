@@ -11,12 +11,6 @@
     margin: -1px auto;
 }
 
-.content-full-width {
-	max-width: 914px;
-	padding: 0 40px;
-	overflow: hidden;
-}
-
 #map-container {
 	visibility: hidden;
 	height: 0;
@@ -101,16 +95,6 @@ border-color: #1A6376;
 
 .reset-container, .search-container {
 	margin-top: 1em;
-}
-
-.content-full-width h1 {
-	font-family: "alternate-gothic-no-2-d",sans-serif;
-	text-transform: uppercase;
-	color: #4d493b;
-	font-weight: 400;
-	font-size: 4em;
-	margin: 0 0 20px;
-	letter-spacing: -0.02em;
 }
 
 .tr-ng-grid .tr-ng-sort .tr-ng-sort-active, .tr-ng-grid .tr-ng-sort .tr-ng-sort-inactive {
@@ -199,7 +183,7 @@ border-color: #1A6376;
 	font-size: 1.2em;
 }
 
-/* fixes for nccor.org elements broken by bootstrap */
+/* fixes for nccor.org elements broken by bootstrap and full-width layout */
 input.q {
 	line-height: normal;
 }
@@ -224,4 +208,33 @@ input.go {
 a.hide-text:hover {
 	font-size: 0px\9;
 	color: rgba(0, 0, 0, 0);
+}
+
+.content-full-width {
+	max-width: 914px;
+	padding: 0 40px;
+	overflow: hidden;
+}
+
+.content-full-width h1 {
+	font-family: "alternate-gothic-no-2-d",sans-serif;
+	text-transform: uppercase;
+	color: #4d493b;
+	font-weight: 400;
+	font-size: 4em;
+	margin: 0 0 20px;
+	letter-spacing: -0.02em;
+}
+
+.content-full-width p, .content-full-width li {
+	font-size: 1.4em;
+	line-height: 1.5em;
+	margin: 0 0 15px 0;
+	color: #333;
+}
+
+.content-full-width ul {
+	list-style: url(../../images/content-right-bullet.gif);
+	margin-left: 10px;
+	padding-left: 5px;
 }
