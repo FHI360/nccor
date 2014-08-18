@@ -227,14 +227,14 @@ a.hide-text:hover {
 }
 
 .content-full-width p, .content-full-width li {
-	font-size: 1.4em;
-	line-height: 1.5em;
+	font-size: 1.05em;
+	line-height: 1.47em;
 	margin: 0 0 15px 0;
 	color: #333;
 }
 
 .content-full-width ul {
-	list-style: url(../../images/content-right-bullet.gif);
+	list-style: url(../../../images/content-right-bullet.gif);
 	margin-left: 10px;
 	padding-left: 5px;
 }
