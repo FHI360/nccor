@@ -73,14 +73,14 @@
             <h3 data-ng-show="!loaded" class="loading-map"><img src="images/loading-map.gif"><br>LOADING MAP...</h3>
             <div id="map-container">
               <p>The National Collaborative on Childhood Obesity Research (NCCOR) Interactive Funding Map provides a snapshot of recent and current childhood obesity research projects within the United States. All projects featured in the map:</p>
-              <ul>
+              <ul class="text-ul">
                 <li>Are funded by CDC, NIH, RWJF, or USDA</li>
                 <li>Received funding between 2008 and 2014</li>
                 <li>Are or were funded at least $1 million per year </li>
               </ul>
               <br>
               <p>The NCCOR Interactive Funding Map includes a variety of features to learn about specific awards.</p>
-              <ul>
+              <ul class="text-ul">
                 <li>To start, simply adjust the filters below (Year(s), Funder(s), State(s), Topic(s), Amount).</li>
                 <li>You can also search by keyword.</li>
                 <li>Additionally, you can navigate within the map (drag, zoom in/out) to focus on specific geographical areas.</li>
