@@ -75,7 +75,7 @@
               <ul class="text-ul">
                 <li>Are funded by CDC, NIH, RWJF, or USDA</li>
                 <li>Received funding between 2008 and 2014</li>
-                <li>Are or were funded at least $1 million per year </li>
+                <li>Are funded or were funded at $1 million per year or more</li>
               </ul>
               <br>
               <p>The NCCOR Interactive Funding Map includes a variety of features to learn about specific awards.</p>
