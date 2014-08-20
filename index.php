@@ -12,7 +12,6 @@
 <meta property="og:title" content="NCCOR Interactive Funding Map" />
 <meta property="og:description" content="The National Collaborative on Childhood Obesity Research (NCCOR) brings together four of the nation's leading research funders – the Centers for Disease Control and Prevention (CDC), the National Institutes of Health (NIH), the Robert Wood Johnson Foundation (RWJF), and the U.S. Department of Agriculture (USDA) – to address the problem of childhood obesity in America." />
 
- 
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link href="../../css/redesign-2014/header-redesign-style.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
