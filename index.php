@@ -265,7 +265,7 @@
         }, 700);
         return false;
       }
-  };
+  }; 
 </script>
 </body>
 </html>
