@@ -24,7 +24,6 @@
 <link href="bootstrap/multiselect.min.css" rel="stylesheet" type="text/css" />
 <link href="slider/jquery-ui-trimmed.css" rel="stylesheet" type="text/css" />
 <link href="table/trNgGrid.css" rel="stylesheet" type="text/css" />
-
 <link href="css/map.css" rel="stylesheet" type="text/css" />
 
 <!--[if IE 6]><link href="../css/ie6-override.css" type="text/css" rel="stylesheet" media="screen" /><![endif]-->
@@ -265,7 +264,7 @@
         }, 700);
         return false;
       }
-  }; 
+  };
 </script>
 </body>
 </html>
