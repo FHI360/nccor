@@ -68,8 +68,7 @@
             </p>
             
             <h1>NCCOR Interactive Funding Map</h1>
-            <h3 data-ng-show="!loaded" class="loading-map"><img src="images/loading-map.gif"><br>LOADING MAP...</h3>
-            <div id="map-container">
+            <div id="page-container">
               <p>The National Collaborative on Childhood Obesity Research (NCCOR) Interactive Funding Map provides a snapshot of recent and current childhood obesity research projects within the United States. All projects featured in the map:</p>
               <ul class="text-ul">
                 <li>Are funded by CDC, NIH, RWJF, or USDA</li>
@@ -86,122 +85,118 @@
               </ul>
               <br>
               <p>Details for projects displayed in the map view are listed in the sortable table below the map. Additional information (e.g., project number, proposal ID, GIS coordinates) is available within the exportable file. To export information for all projects, click the link below the map.</p>
-
-              <div class="row">
-                <div class="col col-md-6">
-                  <div class="col col-sm-6 filter-container">
-                    <label class="text-center col-xs-12">Year(s)</label>
-                    <div data-ng-dropdown-multiselect="" options="years" selected-model="year" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Show all', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllYears}"></div>
-                  </div>
-                
-                  <div class="col col-sm-6 filter-container">
-                    <label class="text-center col-xs-12">Funder(s)</label>
-                    <div data-ng-dropdown-multiselect="" options="funders" selected-model="funder" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Show all', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllFunders}"></div>
-                  </div>
-                </div>
-
-                <div class="col col-md-6">
-                  <div class="col col-sm-6 filter-container">
-                    <label class="text-center col-xs-12">State(s)</label>
-                    <div data-ng-dropdown-multiselect="" options="states" selected-model="state" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Show all', uncheckAll: 'Reset'}" events="{onItemSelect: changeStates, onItemDeselect: changeStates, onDeselectAll: uncheckAllStates}"></div>
-                  </div>
+              <h3 data-ng-show="!loaded" class="loading-map"><img src="images/loading-map.gif"><br>LOADING MAP...</h3>
+              <div id="map-container">
+                <div class="row">
+                  <div class="col col-md-6">
+                    <div class="col col-sm-6 filter-container">
+                      <label class="text-center col-xs-12">Year(s)</label>
+                      <div data-ng-dropdown-multiselect="" options="years" selected-model="year" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Show all', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllYears}"></div>
+                    </div>
                   
-                  <div class="col col-sm-6 filter-container">
-                    <label class="text-center col-xs-12">Topic(s)</label>
-                    <div data-ng-dropdown-multiselect="" options="topics" selected-model="topic" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Show all', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllTopics}"></div>
+                    <div class="col col-sm-6 filter-container">
+                      <label class="text-center col-xs-12">Funder(s)</label>
+                      <div data-ng-dropdown-multiselect="" options="funders" selected-model="funder" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Show all', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllFunders}"></div>
+                    </div>
+                  </div>
+
+                  <div class="col col-md-6">
+                    <div class="col col-sm-6 filter-container">
+                      <label class="text-center col-xs-12">State(s)</label>
+                      <div data-ng-dropdown-multiselect="" options="states" selected-model="state" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Show all', uncheckAll: 'Reset'}" events="{onItemSelect: changeStates, onItemDeselect: changeStates, onDeselectAll: uncheckAllStates}"></div>
+                    </div>
+                    
+                    <div class="col col-sm-6 filter-container">
+                      <label class="text-center col-xs-12">Topic(s)</label>
+                      <div data-ng-dropdown-multiselect="" options="topics" selected-model="topic" extra-settings="{displayProp: 'label', idProp: 'label', showCheckAll: false}" translation-texts="{buttonDefaultText: 'Show all', uncheckAll: 'Reset'}" events="{onItemSelect: processData, onItemDeselect: processData, onDeselectAll: uncheckAllTopics}"></div>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="row">&nbsp;</div>
+                <div class="row">&nbsp;</div>
 
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="col col-sm-3 search-container">
-                    <form id="keyword-search" data-ng-submit="processSearch(searchString)" class="form-inline" role="form">
-                      <div class="form-group">
-                        <div class="input-group">
-                          <input class="form-control"  type="search" placeholder="Search by keywords..." data-ng-model="searchString"></input>
-                          <span class="input-group-btn"><button type="submit" class="btn btn-primary btn-md btn-block"><span class="glyphicon glyphicon-search"></span></button></span>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="col col-sm-3 search-container">
+                      <form id="keyword-search" data-ng-submit="processSearch(searchString)" class="form-inline" role="form">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <input class="form-control"  type="search" placeholder="Search by keywords..." data-ng-model="searchString"></input>
+                            <span class="input-group-btn"><button type="submit" class="btn btn-primary btn-md btn-block"><span class="glyphicon glyphicon-search"></span></button></span>
 
+                          </div>
                         </div>
+                      </form>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <label class="text-center col-xs-12">Amount</label>
+                      <div class="row">
+                        <div class="col-xs-12"><div ui-slider="slider.options" min="{{minRange}}" max="{{maxRange}}" step="50000" ng-model="amountRange"></div></div>
                       </div>
-                    </form>
-                  </div>
-
-                  <div class="col-sm-6">
-                    <label class="text-center col-xs-12">Amount</label>
-                    <div class="row">
-                      <div class="col-xs-12"><div ui-slider="slider.options" min="{{minRange}}" max="{{maxRange}}" step="50000" ng-model="amountRange"></div></div>
+                      <div class="row">
+                        <div class="col-xs-6">{{amountRange[0] | nfcurrency}}</div>
+                        <div class="col-xs-6 text-right">{{amountRange[1] | nfcurrency}}</div>
+                      </div>
                     </div>
-                    <div class="row">
-                      <div class="col-xs-6">{{amountRange[0] | nfcurrency}}</div>
-                      <div class="col-xs-6 text-right">{{amountRange[1] | nfcurrency}}</div>
+
+                    <div class="col col-sm-3 reset-container">
+                      <button data-ng-click="resetFilters()" class="btn btn-primary col-sm-12 reset">Reset all filters</button>
                     </div>
                   </div>
+                </div>
+                <div class="row"><h5 data-ng-if="message.length>0" class="col col-sm-12">{{message}} <img src="images/loading.gif"></h5></div>
+                <div class="row">&nbsp;</div>
 
-                  <div class="col col-sm-3 reset-container">
-                    <button data-ng-click="resetFilters()" class="btn btn-primary col-sm-12 reset">Reset all filters</button>
+                <div class="row">
+                  <label class="text-left col-xs-12" data-ng-if="((year.length>0)||(funder.length>0)||(state.length>0)||(topic.length>0))">Active Filters</label>
+                  <div class="col-sm-12">
+                    <ul class="active-filters active-filters-years"><li data-ng-repeat="y in year"><small>{{y.id}}</small></li></ul>                
+                    <ul class="active-filters active-filters-funders"><li data-ng-repeat="f in funder"><small>{{f.id}}</small></li></ul>
+                    <ul class="active-filters active-filters-states"><li data-ng-repeat="s in state"><small>{{s.id}}</small></li></ul>
+                    <ul class="active-filters active-filters-topics"><li data-ng-repeat="t in topic"><small>{{t.id}}</small></li></ul>
                   </div>
                 </div>
-              </div>
-              <div class="row"><h5 data-ng-if="message.length>0" class="col col-sm-12">{{message}} <img src="images/loading.gif"></h5></div>
-              <div class="row">&nbsp;</div>
-
-              <div class="row">
-                <label class="text-left col-xs-12" data-ng-if="((year.length>0)||(funder.length>0)||(state.length>0)||(topic.length>0))">Active Filters</label>
-                <div class="col-sm-12">
-                  <ul class="active-filters active-filters-years"><li data-ng-repeat="y in year"><small>{{y.id}}</small></li></ul>                
-                  <ul class="active-filters active-filters-funders"><li data-ng-repeat="f in funder"><small>{{f.id}}</small></li></ul>
-                  <ul class="active-filters active-filters-states"><li data-ng-repeat="s in state"><small>{{s.id}}</small></li></ul>
-                  <ul class="active-filters active-filters-topics"><li data-ng-repeat="t in topic"><small>{{t.id}}</small></li></ul>
-                </div>
-              </div>
-          
-              <h4>Showing {{filteredData.length}} projects</h4>
-              <br>
-
-              <div id="map"></div>
-              <br>
-
-              <div class="row">
-                <a id="table"></a>
-              </div>
-              <div class="row">
-                <div class="col-md-6"><span data-ng-show="zoomedin">To zoom out, click the “Reset all filters” button above.</span></div>
-                <div class="col-md-6 text-right"><a href="http://map.nccor.org/export/projects/all/NCCOR_Projects.csv"><img src="images/spreadsheet.png" /> Export all projects to CSV</a></div>
-              </div>
-              <div class="row">
-                <div class="col-md-12 text-right"><p class="small">Data last updated May 2014</p></div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-12 text-justify">
-                  <p>To sort the projects listed in the table, click the column titles in the header row (Title, Year, Funder, Agency, Institution, Location, Investigator, Budget).</p>
-                </div>
-              </div>
-
-              <table data-tr-ng-grid="" items="filteredData" data-page-items="10" data-selection-mode="0" data-enable-filtering="false" class="table table-responsive">
-                <thead>
-                  <tr>
-                    <th field-name="title" display-name="Title" enable-filtering="false" cell-width="30em" display-align="left"></th>
-                    <th field-name="year" display-name="Year" enable-filtering="false" cell-width="7em" display-align="left"></th>
-                    <th field-name="funder" display-name="Funder" enable-filtering="false" cell-width="7em" display-align="left"></th>
-                    <th field-name="agency" display-name="Agency" enable-filtering="false" cell-width="7em" display-align="left"></th>
-                    <th field-name="institution" display-name="Institution" enable-filtering="false" cell-width="15em" display-align="left"></th>
-                    <th field-name="location" display-name="Location" enable-filtering="false" cell-width="10em" display-align="left"></th>
-                    <th field-name="investigator" display-name="Investigator" enable-filtering="false" cell-width="10em" display-align="left"></th>
-                    <th field-name="amount" display-name="Budget" enable-filtering="false" cell-width="7em" display-align="right" display-format="nfcurrency"></th>
-                  </tr>
-                </thead>
-              </table>
-              
-            </div>
             
-          <!-- the map -->
+                <h4>Showing {{filteredData.length}} projects</h4>
+                <br>
 
-          <!-- end the map -->
+                <div id="map"></div>
+                <br>
 
+                <div class="row">
+                  <a id="table"></a>
+                </div>
+                <div class="row">
+                  <div class="col-md-6"><span data-ng-show="zoomedin">To zoom out, click the “Reset all filters” button above.</span></div>
+                  <div class="col-md-6 text-right"><a href="http://map.nccor.org/export/projects/all/NCCOR_Projects.csv"><img src="images/spreadsheet.png" /> Export all projects to CSV</a></div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 text-right"><p class="small">Data last updated May 2014</p></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12 text-justify">
+                    <p>To sort the projects listed in the table, click the column titles in the header row (Title, Year, Funder, Agency, Institution, Location, Investigator, Budget).</p>
+                  </div>
+                </div>
+
+                <table data-tr-ng-grid="" items="filteredData" data-page-items="10" data-selection-mode="0" data-enable-filtering="false" class="table table-responsive">
+                  <thead>
+                    <tr>
+                      <th field-name="title" display-name="Title" enable-filtering="false" cell-width="30em" display-align="left"></th>
+                      <th field-name="year" display-name="Year" enable-filtering="false" cell-width="7em" display-align="left"></th>
+                      <th field-name="funder" display-name="Funder" enable-filtering="false" cell-width="7em" display-align="left"></th>
+                      <th field-name="agency" display-name="Agency" enable-filtering="false" cell-width="7em" display-align="left"></th>
+                      <th field-name="institution" display-name="Institution" enable-filtering="false" cell-width="15em" display-align="left"></th>
+                      <th field-name="location" display-name="Location" enable-filtering="false" cell-width="10em" display-align="left"></th>
+                      <th field-name="investigator" display-name="Investigator" enable-filtering="false" cell-width="10em" display-align="left"></th>
+                      <th field-name="amount" display-name="Budget" enable-filtering="false" cell-width="7em" display-align="right" display-format="nfcurrency"></th>
+                    </tr>
+                  </thead>
+                </table>
+              </div><!-- end of the map-container -->
+            </div><!-- end of the page-container -->
         </div><!--end content-full-width-->
     </div><!--end ng-app-->
   </div><!--end content-->

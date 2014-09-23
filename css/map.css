@@ -14,7 +14,10 @@
 #map-container {
 	visibility: hidden;
 	height: 0;
-	font-size: 1.3em;
+}
+
+#page-container {
+	font-size: 1.3em
 }
 
 .dropdown-menu {
