@@ -20,6 +20,12 @@
 	font-size: 1.3em
 }
 
+.disclaimer {
+	border: 2px solid #444;
+	padding: 10px;
+	font-style: italic;
+}
+
 .dropdown-menu {
 	z-index: 1500;
 }

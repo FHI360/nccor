@@ -69,11 +69,11 @@
             
             <h1>NCCOR Interactive Funding Map</h1>
             <div id="page-container">
-              <p>The National Collaborative on Childhood Obesity Research (NCCOR) Interactive Funding Map provides a snapshot of recent and current childhood obesity research projects within the United States. All projects featured in the map:</p>
+              <p>The National Collaborative on Childhood Obesity Research (NCCOR) Interactive Funding Map is a resource for researchers designed to provide a snapshot of large, recent and current childhood obesity research projects within the United States. All projects featured in the map:</p>
               <ul class="text-ul">
                 <li>Are funded by CDC, NIH, RWJF, or USDA</li>
+                <li>Are funded or were funded at $1 million or more per year</li>
                 <li>Received funding between 2008 and 2014</li>
-                <li>Are funded or were funded at $1 million per year or more</li>
               </ul>
               <br>
               <p>The NCCOR Interactive Funding Map includes a variety of features to learn about specific awards.</p>
@@ -195,6 +195,19 @@
                     </tr>
                   </thead>
                 </table>
+
+                <div class="row">
+                  <div class="col-md-12 text-justify">
+                    <p>Public data sources:</p>
+                    <ul class="text-ul">
+                      <li><a href="http://projectreporter.nih.gov/reporter.cfm">NIH RePORTER (NIH and CDC funded research projects)</a></li>
+                      <li><a href="http://www.rwjf.org/en/grants/search.html">RWJF Grant Archive</a></li>
+                      <li><a href="http://cris.nifa.usda.gov/cgi-bin/starfinder/0?path=fastlink1.txt&id=anon&pass=&search=GC=A2101&format=WEBTITLESG">USDA NIFA Current Research Information System</a></li>
+                    </ul>
+                    <p class="disclaimer"><strong>Disclaimer:</strong> The research projects included in the map are not representative of all funded work by NCCOR partners. Only research projects that met specific selection criteria for the purpose of this map are included (e.g., large projects funded at $1 million or more per year). Inclusion of a research project does not indicate an endorsement of methodology or outcomes by NCCOR partners. Map data should be used for reference purposes only. Users of this interactive map should consult research project descriptions provided by the funding organization for more information or to learn about research projects not shown.</p>
+                  </div>
+                </div>
+
               </div><!-- end of the map-container -->
             </div><!-- end of the page-container -->
         </div><!--end content-full-width-->
